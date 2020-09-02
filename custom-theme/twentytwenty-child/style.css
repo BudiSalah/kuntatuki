@@ -1,0 +1,43 @@
+/*
+Theme Name: Twenty Twenty Child
+Theme URI: 
+Description: Default Twenty Twenty child theme
+Author: Antti Vainionpää
+Author URI: 
+Template: twentytwenty
+Version: 0.1
+*/
+
+/* @import url(https://db.onlinewebfonts.com/c/1db72198459b1d419ae5940598a2bad5?family=ParalucentW00-Bold);*/
+/* @import url(https://use.typekit.net/gfr6hpo.css); */ 
+
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat+Subrayada:wght@400;700&family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');*/
+
+/*@font-face {
+	font-family: "AcrylicHand-Serif";
+	src: url("https://raakamakkara.demo.site/wp-content/themes/hello-elementor-child/fonts/AcrylicHand-Serif.ttf") format("truetype"); 
+}*/
+
+
+body.page-template-hankeet-template h2.page-title {text-align: center;text-transform: uppercase;}
+body.page-template-hankeet-template article h2.entry-title {font-size: 40px;}
+
+.custom-pagination {
+    padding: 50px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.custom-pagination a {
+    padding: 10px;
+}
+
+@media screen and (max-width: 1600px) and (min-width: 1025px) {
+}
+
+@media (max-width: 1024px) {
+}
+
+@media (max-width: 767px) {
+
+}
