@@ -1,10 +1,12 @@
 <?php
+/**
+ * Underscore.js template.
+ *
+ * @package fusion-builder
+ */
 
-global $fusion_settings;
-if ( ! $fusion_settings ) {
-	$fusion_settings = Fusion_Settings::get_instance();
-}
-
+$fusion_settings   = fusion_get_fusion_settings();
+$icon_circle       = $fusion_settings->get( 'icon_circle' );
 $icon_color        = $fusion_settings->get( 'icon_color' );
 $icon_circle_color = $fusion_settings->get( 'icon_circle_color' );
 ?>
@@ -15,7 +17,8 @@ $icon_circle_color = $fusion_settings->get( 'icon_circle_color' );
 	icon_color = '',
 	icon_color = params.iconcolor,
 	icon = params.icon,
-	circle_background = '';
+	circle_background = '',
+	circle = '' !== params.circle ? params.circle : '<?php echo esc_html( $icon_circle ); ?>';
 
 	if ( '' === params.iconcolor ||  ! params.iconcolor ) {
 		icon_color = '<?php echo esc_attr( $icon_color ); ?>';
@@ -29,20 +32,22 @@ $icon_circle_color = $fusion_settings->get( 'icon_circle_color' );
 		circle_background = params.circlecolor;
 	}
 
-	if ( ( 'no' === params.circle || 'yes' === params.circle && ( '#ffffff' === circle_background || -1 !== circle_background.indexOf( 'rgba(255,255,255' ) ) ) && ( '#ffffff' === icon_color || -1 !== icon_color.indexOf( 'rgba(255,255,255' ) ) ) {
+	if ( ( 'no' === circle || 'yes' === circle && ( '#ffffff' === circle_background || -1 !== circle_background.indexOf( 'rgba(255,255,255' ) ) ) && ( '#ffffff' === icon_color || -1 !== icon_color.indexOf( 'rgba(255,255,255' ) ) ) {
 		icon_color = '#dddddd';
 	}
 
-	if ( 'undefined' !== typeof icon && -1 === icon.trim().indexOf( ' ' ) ) {
+	if ( 'fusion-prefix-' === icon.substr( 0, 14 ) ) {
+		icon = icon.replace( 'fusion-prefix-', '' );
+	} else if ( 'undefined' !== typeof icon && -1 === icon.trim().indexOf( ' ' ) && -1 !== icon.indexOf( 'fa-' ) ) {
 		icon = 'fa ' + icon;
 	}
 	#>
 
-	<# if ( params.circle === 'yes' ) { #>
+	<# if ( circle === 'yes' ) { #>
 		<div class="fusion-icon-circle-preview" style="background: {{ circle_background }}">
 	<# } #>
 		<span class="fa-preview {{ icon }}" style="color: {{ icon_color }}"></span>
-	<# if ( params.circle === 'yes' ) { #>
+	<# if ( circle === 'yes' ) { #>
 		</div>
 	<# } #>
 

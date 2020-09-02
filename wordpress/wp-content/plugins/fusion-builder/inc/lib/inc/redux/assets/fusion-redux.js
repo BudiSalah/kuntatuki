@@ -76,7 +76,16 @@ jQuery( document ).ready( function() {
 				header_top_bg_color:                      jQuery( 'input[name="' + $themeOptionsName + '[header_top_bg_color]"]' ).val(),
 				content_box_hover_animation_accent_color: '',
 				map_overlay_color:                        jQuery( 'input[name="' + $themeOptionsName + '[map_overlay_color]"]' ).val(),
-				flyout_menu_icon_hover_color:             jQuery( 'input[name="' + $themeOptionsName + '[flyout_menu_icon_hover_color]"]' ).val()
+				flyout_menu_icon_hover_color:             jQuery( 'input[name="' + $themeOptionsName + '[flyout_menu_icon_hover_color]"]' ).val(),
+				menu_highlight_background:                jQuery( 'input[name="' + $themeOptionsName + '[menu_highlight_background]"]' ).val(),
+				menu_icon_hover_color:                    jQuery( 'input[name="' + $themeOptionsName + '[menu_icon_hover_color]"]' ).val(),
+				logo_background_color:                    jQuery( 'input[name="' + $themeOptionsName + '[logo_background_color]"]' ).val(),
+				slidingbar_link_color_hover:              jQuery( 'input[name="' + $themeOptionsName + '[slidingbar_link_color_hover]"]' ).val(),
+				footer_link_color_hover:                  jQuery( 'input[name="' + $themeOptionsName + '[footer_link_color_hover]"]' ).val(),
+				copyright_link_color_hover:               jQuery( 'input[name="' + $themeOptionsName + '[copyright_link_color_hover]"]' ).val(),
+				privacy_bar_link_hover_color:             jQuery( 'input[name="' + $themeOptionsName + '[privacy_bar_link_hover_color]"]' ).val(),
+				faq_accordian_active_color:               '',
+				accordian_active_color:                   ''
 			};
 
 			$data = $customColors;
@@ -393,7 +402,7 @@ jQuery( document ).ready( function() {
 		    $mainMenuHeight;
 
 		// Auto adjust main menu height
-		if ( 'Top' === $headerPosition ) {
+		if ( 'top' === $headerPosition.toLowerCase() ) {
 			if ( 'v1' === $headerVersion || 'v2' === $headerVersion || 'v3' === $headerVersion ) {
 				$mainMenuHeight = '84';
 			} else {
@@ -406,13 +415,13 @@ jQuery( document ).ready( function() {
 
 		// Auto set header padding
 		jQuery( '.fusion_theme_options-header_padding input' ).val( '0px' );
-		if ( 'Top' !== $headerPosition ) {
+		if ( 'top' !== $headerPosition.toLowerCase() ) {
 			jQuery( '.fusion_theme_options-header_padding input.fusionredux-spacing-left, .fusion_theme_options-header_padding #header_padding-left, .fusion_theme_options-header_padding input.fusionredux-spacing-right, .fusion_theme_options-header_padding #header_padding-right' ).val( '60px' );
 		}
 
 		// Auto adjust logo margin
 		jQuery( '.fusion_theme_options-logo_margin .fusionredux-spacing-top, .fusion_theme_options-logo_margin #logo_margin-top, .fusion_theme_options-logo_margin .fusionredux-spacing-bottom, .fusion_theme_options-logo_margin #logo_margin-bottom' ).val( '31px' );
-		if ( 'Top' === $headerPosition && 'v4' === $headerVersion ) {
+		if ( 'top' === $headerPosition.toLowerCase() && 'v4' === $headerVersion ) {
 			jQuery( '.fusion_theme_options-logo_margin .fusionredux-spacing-bottom, .fusion_theme_options-logo_margin #logo_margin-bottom' ).val( '0px' );
 		}
 	});
@@ -424,7 +433,7 @@ jQuery( document ).ready( function() {
 			$widthDimension = jQuery( '#menu_arrow_size .fusionredux-dimensions-width, #menu_arrow_size-width' ),
 		    $heightDimension = jQuery( '#menu_arrow_size .fusionredux-dimensions-height, #menu_arrow_size-height' );
 
-		if ( 'Top' !== jQuery( this ).find( '.ui-state-active' ).prev( 'input' ).val() ) {
+		if ( 'top' !== jQuery( this ).find( '.ui-state-active' ).prev( 'input' ).val() ) {
 			if ( parseInt( $widthVal ) > parseInt( $heightVal ) ) {
 				$widthDimension.val( $heightVal );
 				$heightDimension.val( $widthVal );
@@ -465,7 +474,7 @@ jQuery( document ).ready( function() {
 		jQuery( '#fusion-visibility-large span' ).html( jQuery( this ).val() );
 	});
 
-	jQuery( '#shortcode_animations_accordion_start_accordion' ).prev( '.form-table' ).remove();
+	jQuery( '#animations_shortcode_section_start_accordion' ).prev( '.form-table' ).remove();
 
 });
 
@@ -577,64 +586,80 @@ jQuery.fn.set_social_media_repeater_custom_field_logic = function() {
 	});
 };
 
-jQuery( window ).load( function() {
-
-	var $hrefTarget,
-	    $optionTarget,
+function fusionOpenOption( $hrefTarget ) {
+	var $optionTarget,
 	    $tabTarget,
 	    $adminbarHeight,
 	    $theTarget;
+
+	 if ( 'object' === typeof $hrefTarget ) {
+	 	$hrefTarget = $hrefTarget[1];
+	 }
+	// If it doesn't contains tab- then assume as option.
+	if ($hrefTarget.indexOf( 'tab-' ) == -1 ) {
+		$optionTarget   = '.fusion_theme_options-' + $hrefTarget;
+		$tabTarget      = jQuery( $optionTarget ).parents( '.fusionredux-group-tab' ).data( 'rel' );
+		$adminbarHeight = 0;
+
+		if ( $tabTarget ) {
+
+			// Check if target element exists.
+			$theTarget = jQuery( 'a[data-key="' + $tabTarget + '"]' );
+			if ( $theTarget ) {
+				setTimeout( function() {
+
+					// Open desired tab.
+					jQuery( 'a[data-key="' + $tabTarget + '"]' ).click();
+					if ( 'heading_shortcode_styling' == $theTarget.data( 'css-id' ) || 'fusion_builder_elements' == $theTarget.data( 'css-id' ) || 'fusion_builder_addons' == $theTarget.data( 'css-id' ) ) {
+						jQuery( $optionTarget ).parents( '.fusionredux-accordian-wrap' ).prev( 'div' ).click();
+					}
+					setTimeout( function() {
+
+						// Scroll to the desired option.
+						if ( jQuery( '#wpadminbar' ).length ) {
+							$adminbarHeight = parseInt( jQuery( '#wpadminbar' ).outerHeight() );
+						}
+						jQuery( 'html, body' ).animate({
+							scrollTop: jQuery( $optionTarget ).closest( 'tr' ).offset().top - $adminbarHeight }, 450
+						);
+					}, 200 );
+				}, 100 );
+			}
+
+		}
+	} else {
+		$tabTarget = $hrefTarget.split( '-' );
+		$theTarget = jQuery( 'a[data-css-id="' + $hrefTarget + '"]' );
+
+		// Check if desired tab exists.
+		if ( $theTarget.length ) {
+
+			// Open desired tab.
+			setTimeout( function() {
+				$theTarget.click();
+			}, 100 );
+		}
+	}
+}
+
+jQuery( window ).load( function() {
+
+	var $hrefTarget;
 
 	// Check option name and open relevant tab.
 	if ( location.hash ) {
 		$hrefTarget = window.location.href.split( '#' );
 
-		// If it doesn't contains tab- then assume as option.
-		if ( $hrefTarget[1].indexOf( 'tab-' ) == -1 ) {
-			$optionTarget   = '.fusion_theme_options-' + $hrefTarget[1];
-			$tabTarget      = jQuery( $optionTarget ).parents( '.fusionredux-group-tab' ).data( 'rel' );
-			$adminbarHeight = 0;
-
-			if ( $tabTarget ) {
-
-				// Check if target element exists.
-				$theTarget = jQuery( 'a[data-key="' + $tabTarget + '"]' );
-				if ( $theTarget ) {
-					setTimeout( function() {
-
-						// Open desired tab.
-						jQuery( 'a[data-key="' + $tabTarget + '"]' ).click();
-						if ( 'heading_shortcode_styling' == $theTarget.data( 'css-id' ) || 'fusion_builder_elements' == $theTarget.data( 'css-id' ) || 'fusion_builder_addons' == $theTarget.data( 'css-id' ) ) {
-							jQuery( $optionTarget ).parents( '.fusionredux-accordian-wrap' ).prev( 'div' ).click();
-						}
-						setTimeout( function() {
-
-							// Scroll to the desired option.
-							if ( jQuery( '#wpadminbar' ).length ) {
-								$adminbarHeight = parseInt( jQuery( '#wpadminbar' ).outerHeight() );
-							}
-							jQuery( 'html, body' ).animate({
-								scrollTop: jQuery( $optionTarget ).parents( 'tr' ).offset().top - $adminbarHeight }, 450
-							);
-						}, 200 );
-					}, 100 );
-				}
-
-			}
-		} else {
-			$tabTarget = $hrefTarget[1].split( '-' );
-			$theTarget = jQuery( 'a[data-css-id="' + $tabTarget[1] + '"]' );
-
-			// Check if desired tab exists.
-			if ( $theTarget.length ) {
-
-				// Open desired tab.
-				setTimeout( function() {
-					$theTarget.click();
-				}, 100 );
-			}
-		}
+		fusionOpenOption( $hrefTarget );
 	}
+
+	jQuery( '.fusionredux-container' ).on( 'click', '.fusion-quick-option', function( event ) {
+		var option = jQuery( event.target ).data( 'fusion-option' );
+
+		event.preventDefault();
+
+		fusionOpenOption( option );
+	} );
 });
 
 jQuery( document ).ready( function() {

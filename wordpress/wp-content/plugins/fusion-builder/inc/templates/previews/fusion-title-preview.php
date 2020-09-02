@@ -1,13 +1,35 @@
 <?php
-global $fusion_settings;
-if ( ! $fusion_settings ) {
-	$fusion_settings = Fusion_Settings::get_instance();
-}
+/**
+ * Underscore.js template.
+ *
+ * @package fusion-builder
+ */
 
+$fusion_settings     = fusion_get_fusion_settings();
 $theme_options_style = strtolower( $fusion_settings->get( 'title_style_type' ) );
 ?>
 <script type="text/template" id="fusion-builder-block-module-title-preview-template">
 
+<# if ( 'undefined' !== typeof params.title_type && 'text' !== params.title_type ) { #>
+	<h4 class="fusion_module_title"><span class="fusion-module-icon {{ fusionAllElements[element_type].icon }}"></span>{{ fusionAllElements[element_type].name }}</h4>
+	<?php
+	/* translators: The title type. */
+	printf( esc_html__( 'Type = %s', 'fusion-builder' ), '{{ params.title_type }}' );
+	?>
+	<# if ( 'rotating' === params.title_type ) { #>
+		<br />
+		<?php
+		/* translators: The effect type. */
+		printf( esc_html__( 'Effect = %s', 'fusion-builder' ), '{{ params.rotation_effect }}' );
+		?>
+	<# } else if ( 'highlight' === params.title_type ) { #>
+		<br />
+		<?php
+		/* translators: The effect type. */
+		printf( esc_html__( 'Effect = %s', 'fusion-builder' ), '{{ params.highlight_effect }}' );
+		?>
+	<# } #>
+<# } else { #>
 	<div class="fusion-title-preview">
 		<#
 		var style_type = ( params.style_type ) ? params.style_type.replace( ' ', '_' ) : 'default';
@@ -43,5 +65,5 @@ $theme_options_style = strtolower( $fusion_settings->get( 'title_style_type' ) )
 
 		<span class="{{ style_type }}" style="{{{ styleTag }}}"><sub class="title_text {{ align }}">{{ shortcode_content }}</sub></span>
 	</div>
-
+<# } #>
 </script>

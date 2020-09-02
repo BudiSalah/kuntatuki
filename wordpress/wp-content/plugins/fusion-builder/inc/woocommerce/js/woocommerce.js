@@ -1,5 +1,5 @@
 jQuery( document ).ready( function() {
-	jQuery( 'body' ).on( 'click', '.add_to_cart_button', function( e ) {
+	jQuery( 'body' ).on( 'click', '.add_to_cart_button', function() {
 		var $addToCartButton = jQuery( this );
 
 		$addToCartButton.closest( '.product, li' ).find( '.cart-loading' ).find( 'i' ).removeClass( 'fusion-icon-check-square-o' ).addClass( 'fusion-icon-spinner' );

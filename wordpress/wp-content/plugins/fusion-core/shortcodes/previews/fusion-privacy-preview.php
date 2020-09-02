@@ -2,7 +2,7 @@
 /**
  * Privacy Element Preview.
  *
- * @package Fusion-Core
+ * @package Avada-Core
  * @since 3.5.2
  */
 

@@ -1,0 +1,18 @@
+body #wrapper
+    footer
+        padding-left: 120px
+        padding-right: 120px
+        .hero-custom-icons-position
+            @supports (flex-direction: row)
+                    display: flex
+                    flex-direction: row
+            @supports not (flex-direction: row)
+                > div:first-of-type
+                    float: left
+            
+            > div:first-of-type
+                margin-right: 15px
+                    
+        #custom_html-3,
+        #custom_html-6
+            text-align: right

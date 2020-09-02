@@ -1,30 +1,76 @@
+<?php
+/**
+ * An underscore.js template.
+ *
+ * @package fusion-builder
+ */
+
+?>
 <script type="text/template" id="fusion-builder-block-module-settings-template">
 	<div class="fusion-builder-modal-top-container">
 		<# elementData = fusionAllElements[atts.element_type]; #>
 		<# if ( 'undefined' !== typeof elementData ) { #>
-				<h2>{{ elementData.name }}</h2>
+				<h2>
+					{{ elementData.name }}
+					<# if ( 'undefined' !== typeof elementData.has_responsive ) { #>
+						<ul class="fusion-viewport-indicator">
+							<li class="fusion-viewport-text">
+								<?php esc_html_e( 'responsive', 'fusion-builder' ); ?>
+							</li>
+							<li data-viewport="small">
+								<a  href="JavaScript:void(0);">
+									<i class="fusiona-mobile"></i>
+								</a>
+							</li>
+							<li data-viewport="medium">
+								<a href="JavaScript:void(0);">
+									<i class="fusiona-tablet"></i>
+								</a>
+							</li>
+							<li data-viewport="large" class="active">
+								<a href="JavaScript:void(0);">
+									<i class="fusiona-desktop"></i>
+								</a>
+							</li>
+						</ul>
+					<# }; #>
+				</h2>
 		<# }; #>
 		<div class="fusion-builder-modal-close fusiona-plus2"></div>
-		<#  group_options = {}, group_options['general'] = {}; #>
+		<#  group_options = {}, group_options['general'] = {};
+			var	menuLabel = '';
+		#>
 
 		<!-- Move options to groups -->
-		<# _.each( elementData.params, function(param) { #>
-			<# if ( typeof( param.group ) !== 'undefined' ) {  #>
-				<# var group_tag = param.group.toLowerCase().replace(/ /g, '-'); #>
-				<# if ( typeof( group_options[group_tag] ) == 'undefined' ) {
-					group_options[group_tag] = {};
-				} #>
-				<# group_options[group_tag][param.param_name] = param; #>
-			<# } else { #>
-				<# group_options['general'][param.param_name] = param; #>
-			<# }; #>
-		<# } ); #>
+		<# _.each( fusionAllElements[atts.element_type].params, function( param ) {
+			if ( 'undefined' !== typeof param.group ) {
+				var group_tag = param.group.toLowerCase().replace(/ /g, '-');
+				if ( 'undefined' == typeof group_options[ group_tag ] ) {
+					group_options[ group_tag ] = {};
+				}
+				if ( 'undefined' !== typeof param.subgroup ) {
+					if ( 'undefined' == typeof group_options[ group_tag ][param.subgroup.name]['subgroups'] ) {
+						group_options[ group_tag ][param.subgroup.name]['subgroups'] = {};
+					}
+					if ( 'undefined' == typeof group_options[ group_tag ][param.subgroup.name]['subgroups'][param.subgroup.tab] ) {
+						group_options[ group_tag ][param.subgroup.name]['subgroups'][param.subgroup.tab] = {};
+					}
+					group_options[ group_tag ][param.subgroup.name]['subgroups'][param.subgroup.tab][ param.param_name ] = param;
+				} else {
+					group_options[ group_tag ][ param.param_name ] = param;
+				}
+			} else {
+				group_options['general'][ param.param_name ] = param;
+			}
+
+		} ); #>
 
 		<!-- If there is more than one group found show tabs -->
-		<# if ( Object.keys(group_options).length > 1 ) { #>
+		<# if ( Object.keys( group_options ).length > 1 ) { #>
 			<ul class="fusion-tabs-menu">
 				<# _.each( group_options, function( options, group) { #>
-					<li class=""><a href="#{{ group }}">{{ group.replace(/-/g, ' ') }}</a></li>
+					<# menuLabel = group.replace(/-/g, ' '); #>
+					<li class=""><a href="#{{ group }}">{{ menuLabel }}</a></li>
 				<# }); #>
 			</ul>
 		<# }; #>
@@ -33,7 +79,7 @@
 	<div class="fusion-builder-modal-bottom-container">
 		<a href="#" class="fusion-builder-modal-save">
 			<span>
-				<# if ( FusionPageBuilderApp.shortcodeGenerator === true && FusionPageBuilderApp.shortcodeGeneratorMultiElementChild !== true ) { #>
+				<# if ( true === FusionPageBuilderApp.shortcodeGenerator && true !== FusionPageBuilderApp.shortcodeGeneratorMultiElementChild ) { #>
 					{{ fusionBuilderText.insert }}
 				<# } else { #>
 					{{ fusionBuilderText.save }}
@@ -48,13 +94,13 @@
 		</a>
 	</div>
 
-	<# if ( typeof ( atts.multi ) !== 'undefined' && atts.multi == 'multi_element_parent' ) {
+	<# if ( 'undefined' !== typeof atts.multi && 'multi_element_parent' === atts.multi ) {
 		advanced_module_class = ' fusion-builder-main-settings-advanced';
 	} else {
 		advanced_module_class = '';
 	} #>
 
-	<div class="fusion-builder-main-settings fusion-builder-main-settings-full <# if ( Object.keys(group_options).length > 1 ) { #>has-group-options<# } #>{{ advanced_module_class }}">
+	<div class="fusion-builder-main-settings large fusion-builder-main-settings-full <# if ( Object.keys(group_options).length > 1 ) { #>has-group-options<# } #>{{ advanced_module_class }}">
 		<# if ( 'undefined' !== typeof elementData ) { #>
 			<# if ( _.isObject ( elementData.params ) ) { #>
 

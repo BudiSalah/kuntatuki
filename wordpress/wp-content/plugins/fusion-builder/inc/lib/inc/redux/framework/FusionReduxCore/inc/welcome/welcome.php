@@ -305,22 +305,22 @@
 			<h2 class="nav-tab-wrapper">
 				<a class="nav-tab <?php echo $selected == 'fusionredux-about' ? 'nav-tab-active' : ''; ?>"
 					href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'fusionredux-about' ), 'tools.php' ) ) ); ?>">
-					<?php esc_attr_e( "What's New", 'fusion-builder' ); ?>
+					<?php esc_html_e( "What's New", 'fusion-builder' ); ?>
 				</a> <a class="nav-tab <?php echo $selected == 'fusionredux-extensions' ? 'nav-tab-active' : ''; ?>"
 					href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'fusionredux-extensions' ), 'tools.php' ) ) ); ?>">
-					<?php esc_attr_e( 'Extensions', 'fusion-builder' ); ?>
+					<?php esc_html_e( 'Extensions', 'fusion-builder' ); ?>
 				</a> <a class="nav-tab <?php echo $selected == 'fusionredux-changelog' ? 'nav-tab-active' : ''; ?>"
 					href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'fusionredux-changelog' ), 'tools.php' ) ) ); ?>">
-					<?php esc_attr_e( 'Changelog', 'fusion-builder' ); ?>
+					<?php esc_html_e( 'Changelog', 'fusion-builder' ); ?>
 				</a> <a class="nav-tab <?php echo $selected == 'fusionredux-credits' ? 'nav-tab-active' : ''; ?>"
 					href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'fusionredux-credits' ), 'tools.php' ) ) ); ?>">
 					<?php _e( 'Credits', 'fusion-builder' ); ?>
 				</a> <a class="nav-tab <?php echo $selected == 'fusionredux-support' ? 'nav-tab-active' : ''; ?>"
 					href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'fusionredux-support' ), 'tools.php' ) ) ); ?>">
-					<?php esc_attr_e( 'Support', 'fusion-builder' ); ?>
+					<?php esc_html_e( 'Support', 'fusion-builder' ); ?>
 				</a> <a class="nav-tab <?php echo $selected == 'fusionredux-status' ? 'nav-tab-active' : ''; ?>"
 					href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'fusionredux-status' ), 'tools.php' ) ) ); ?>">
-					<?php esc_attr_e( 'Status', 'fusion-builder' ); ?>
+					<?php esc_html_e( 'Status', 'fusion-builder' ); ?>
 				</a>
 			</h2>
 			<?php

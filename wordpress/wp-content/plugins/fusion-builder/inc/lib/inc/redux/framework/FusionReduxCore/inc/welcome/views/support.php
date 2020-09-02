@@ -62,7 +62,7 @@
 							<i class="el el-user"></i><br/>
 							<?php esc_html_e( 'User', 'fusion-builder' ); ?><br/>
 							<small>
-								<?php esc_html_e( 'I am a user, using a pre-built product.', 'fusion-builder' ); ?>
+								<?php esc_html_e( 'I am a user, using a prebuilt product.', 'fusion-builder' ); ?>
 							</small>
 						</td>
 						<td id="is_developer">

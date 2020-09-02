@@ -6,23 +6,60 @@
  */
 
 ?>
-<div class="wrap about-wrap fusion-builder-wrap">
+<?php Fusion_Builder_Admin::header( 'library' ); ?>
 
-	<?php Fusion_Builder_Admin::header(); ?>
+	<div class="fusion-builder-important-notice fusion-template-builder avada-db-card avada-db-card-first">
+		<div class="intro-text">
+			<h1><?php esc_html_e( 'Avada Library', 'fusion-builder' ); ?></h1>
+			<p><?php esc_html_e( 'The Avada Library contains your saved Page Templates, Containers, Columns and Elements. Here, you can create and manage your library content.', 'fusion-builder' ); ?></p>
 
-	<div class="fusion-builder-important-notice">
-		<p class="about-description">
+			<div class="avada-db-card-notice">
+				<i class="fusiona-info-circle"></i>
+				<p class="avada-db-card-notice-heading">			
+					<?php
+					printf(
+						/* translators: %s: "Icons Documentation Link". */
+						esc_html__( 'Please see the %s.', 'fusion-builder' ),
+						'<a href="https://theme-fusion.com/documentation/fusion-builder/fusion-builder-library/" target="_blank">' . esc_attr__( 'Avada Library Documentation', 'fusion-builder' ) . '</a>'
+					);
+					?>
+				</p>
+			</div>			
+		</div>		
+		<form class="avada-db-create-form">
+			<input type="hidden" name="action" value="fusion_library_new">
+
+			<select id="fusion-library-type" name="fusion_library_type" >
+				<option value="" disabled selected><?php esc_html_e( 'Select Library Element Type', 'fusion-builder' ); ?></option>
 			<?php
-			printf(
-				/* translators: "Fusion Builder" link. */
-				esc_html__( 'This is your collection of Fusion Builder Library Containers, Columns and Elements that you have saved. You can edit them individually below, delete them and sort them per category type. To find out more about the %1$s, view our Fusion Builder documentation.', 'fusion-builder' ),
-				'<a href="https://theme-fusion.com/documentation/fusion-builder/fusion-builder-library/" target="_blank">' . esc_attr__( 'Fusion Builder', 'fusion-builder' ) . '</a>'
-			);
-			?>
-		</p>
+				$types = [
+					'templates' => esc_html__( 'Template', 'fusion-builder' ),
+					'sections'  => esc_html__( 'Container', 'fusion-builder' ),
+					'columns'   => esc_html__( 'Column', 'fusion-builder' ),
+					'elements'  => esc_html__( 'Element', 'fusion-builder' ),
+				];
+				?>
+			<?php foreach ( $types as $type_name => $type_label ) : ?>
+				<option value="<?php echo esc_attr( $type_name ); ?>"><?php echo esc_html( $type_label ); ?></option>
+			<?php endforeach; ?>
+
+			</select>
+			<?php wp_nonce_field( 'fusion_library_new_element' ); ?>
+
+			<input class="library-element-name" type="text" placeholder="<?php esc_attr_e( 'Enter Element Name', 'fusion-builder' ); ?>" required id="fusion-library-name" name="name" />
+
+			<div id="fusion-global-field">
+				<label for="fusion-library-global"><?php esc_html_e( 'Global element', 'fusion-builder' ); ?></label>
+				<input type="checkbox" id="fusion-library-global" name="global" />
+			</div>
+
+			<div>
+				<input type="submit" value="<?php esc_attr_e( 'Create Library Element', 'fusion-builder' ); ?>" class="button button-large button-primary avada-large-button" />
+			</div>
+		</form>
 	</div>
 
-	<div class="fusion-library-data-items">
+	<div class="fusion-library-data-items avada-db-table">
 		<?php
 			$fusion_library_table = new Fusion_Builder_Library_Table();
 			$fusion_library_table->get_status_links();
@@ -35,5 +72,4 @@
 		</form>
 	</div>
 
-	<?php Fusion_Builder_Admin::footer(); ?>
-</div>
+<?php Fusion_Builder_Admin::footer(); ?>

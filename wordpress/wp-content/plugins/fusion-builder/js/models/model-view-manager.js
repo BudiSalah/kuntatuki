@@ -1,4 +1,4 @@
-/* global fusionAllElements, FusionPageBuilderViewManager */
+/* global fusionAllElements, fusionBuilderConfig */
 var FusionPageBuilder = FusionPageBuilder || {};
 
 ( function( $ ) {
@@ -6,59 +6,67 @@ var FusionPageBuilder = FusionPageBuilder || {};
 	$( document ).ready( function() {
 
 		var fusionElements          = [],
-			fusionGeneratorElements = [];
+			sortedElements          = [],
+			fusionGeneratorElements = [],
+			fusionComponents        = [],
+			componentsCounter       = 0;
 
-		// Loop over all available elements and add them to Fusion Builder.
-		// Ignore elements tagged with 'hide_from_builder' attribute.
-		_.each( fusionAllElements, function( element ) {
-			var newElement;
+		// Loop over all available elements and add them to Avada Builder.
+		sortedElements = _.sortBy( fusionAllElements, function( element ) {
+			return element.name.toLowerCase();
+		} );
+
+		_.each( sortedElements, function( element ) {
+			var newElement,
+				targetObject = fusionGeneratorElements;
 
 			if ( 'undefined' === typeof element.hide_from_builder ) {
 
 				newElement = {
-					'title': element.name,
-					'label': element.shortcode
+					title: element.name,
+					label: element.shortcode
 				};
 
+				if ( 'undefined' !== typeof element.component && element.component ) {
+					targetObject = fusionComponents;
+				}
 				if ( 'undefined' === typeof element.generator_only ) {
 					fusionElements.push( newElement );
-				} else {
-					newElement.generator_only = true;
 				}
 
-				fusionGeneratorElements.push( newElement );
+				targetObject.push(
+					Object.assign(
+						{},
+						newElement,
+						{
+							generator_only: 'undefined' !== typeof element.generator_only ? true : element.generator_only,
+							templates: 'undefined' !== typeof element.templates ? element.templates : false,
+							components_per_template: 'undefined' !== typeof element.components_per_template ? element.components_per_template : false
+						}
+					)
+				);
 			}
 		} );
 
-		//Sort elements alphabetically
-		fusionElements.sort( function( a, b ) {
-			var titleA = a.title.toLowerCase(),
-				titleB = b.title.toLowerCase();
-
-			return ( ( titleA < titleB ) ? -1 : ( ( titleA > titleB ) ? 1 : 0 ) );
-		} );
-
-		// Sort generator elements alphabetically
-		fusionGeneratorElements.sort( function( a, b ) {
-			var titleA = a.title.toLowerCase(),
-				titleB = b.title.toLowerCase();
-
-			return ( ( titleA < titleB ) ? -1 : ( ( titleA > titleB ) ? 1 : 0 ) );
+		// Filter compoments.
+		fusionComponents.forEach( function( component ) {
+			if ( 'string' === typeof fusionBuilderConfig.template_category && ( 'object' !== typeof component.templates || component.templates.includes( fusionBuilderConfig.template_category ) ) ) {
+				componentsCounter++;
+			}
 		} );
 
 		FusionPageBuilder.ViewManager = Backbone.Model.extend( {
 			defaults: {
 				modules: fusionElements,
 				generator_elements: fusionGeneratorElements,
+				components: fusionComponents,
+				componentsCounter: componentsCounter,
 				elementCount: 0,
 				views: {}
 			},
 
-			initialize: function() {
-			},
-
 			getView: function( cid ) {
-				return this.get( 'views' )[cid];
+				return this.get( 'views' )[ cid ];
 			},
 
 			getChildViews: function( parentID ) {
@@ -77,7 +85,7 @@ var FusionPageBuilder = FusionPageBuilder || {};
 			generateCid: function() {
 				var elementCount = this.get( 'elementCount' ) + 1;
 
-				this.set( { 'elementCount': elementCount } );
+				this.set( { elementCount: elementCount } );
 
 				return elementCount;
 			},
@@ -86,7 +94,7 @@ var FusionPageBuilder = FusionPageBuilder || {};
 				var views = this.get( 'views' );
 
 				views[ cid ] = view;
-				this.set( { 'views': views } );
+				this.set( { views: views } );
 			},
 
 			removeView: function( cid ) {
@@ -95,16 +103,16 @@ var FusionPageBuilder = FusionPageBuilder || {};
 
 				_.each( views, function( value, key ) {
 					if ( key != cid ) { // jshint ignore:line
-						updatedViews[key] = value;
+						updatedViews[ key ] = value;
 					}
 				} );
 
-				this.set( { 'views': updatedViews } );
+				this.set( { views: updatedViews } );
 			},
 
 			removeViews: function() {
 				var updatedViews = {};
-				this.set( { 'views': updatedViews } );
+				this.set( { views: updatedViews } );
 			},
 
 			countElementsByType: function( elementType ) {
@@ -112,7 +120,7 @@ var FusionPageBuilder = FusionPageBuilder || {};
 					num   = 0;
 
 				_.each( views, function( view ) {
-					if ( view.model.attributes.type === elementType ) {
+					if ( view.model.attributes.element_type === elementType ) {
 						num++;
 					}
 				} );
@@ -122,8 +130,8 @@ var FusionPageBuilder = FusionPageBuilder || {};
 
 		} );
 
-		FusionPageBuilderViewManager = new FusionPageBuilder.ViewManager(); // jshint ignore:line
+		window.FusionPageBuilderViewManager = new FusionPageBuilder.ViewManager(); // jshint ignore:line
 
 	} );
 
-} ( jQuery ) );
+}( jQuery ) );

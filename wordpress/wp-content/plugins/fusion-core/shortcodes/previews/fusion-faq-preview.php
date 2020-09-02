@@ -2,7 +2,7 @@
 /**
  * FAQ Element Preview.
  *
- * @package Fusion-Core
+ * @package Avada-Core
  * @since 3.1.0
  */
 

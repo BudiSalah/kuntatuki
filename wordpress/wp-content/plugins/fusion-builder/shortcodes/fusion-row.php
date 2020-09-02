@@ -1,38 +1,51 @@
 <?php
-
 /**
- * Row shortcode
+ * Add an element to fusion-builder.
  *
- * @param array  $atts    The attributes array.
- * @param string $content The content.
- * @return string
+ * @package fusion-builder
+ * @since 1.0
  */
-function fusion_builder_row( $atts, $content = '' ) {
-	extract(
-		shortcode_atts(
-			array(
-				'id'    => '',
-				'class' => '',
-			),
-			$atts,
-			'fusion_builder_row'
-		)
-	);
 
-	return '<div' . ( '' !== $id ? ' id="' . esc_attr( $id ) . '"' : '' ) . ' class="fusion-builder-row fusion-row ' . esc_attr( $class ) . ( '' !== $class ? esc_attr( $class ) : '' ) . '">' . do_shortcode( fusion_builder_fix_shortcodes( $content ) ) . '</div>';
+if ( ! class_exists( 'FusionSC_Row' ) ) {
+	/**
+	 * Shortcode class.
+	 *
+	 * @since 3.0
+	 */
+	class FusionSC_Row extends Fusion_Row_Element {
+
+		/**
+		 * Constructor.
+		 *
+		 * @access public
+		 * @since 3.0
+		 */
+		public function __construct() {
+			$shortcode         = 'fusion_builder_row';
+			$shortcode_attr_id = 'row';
+			$classname         = 'fusion-row';
+			$content_filter    = 'fusion_element_row_content';
+			parent::__construct( $shortcode, $shortcode_attr_id, $classname, $content_filter );
+		}
+
+	}
 }
-add_shortcode( 'fusion_builder_row', 'fusion_builder_row' );
 
+new FusionSC_Row();
 
 /**
- * Map Row shortcode to Fusion Builder
+ * Map Row shortcode to Avada Builder
  */
 function fusion_element_row() {
+
 	fusion_builder_map(
-		array(
-			'name'              => esc_attr__( 'Row', 'fusion-builder' ),
-			'shortcode'         => 'fusion_builder_row',
-			'hide_from_builder' => true,
+		fusion_builder_frontend_data(
+			'FusionSC_Row',
+			[
+				'name'              => esc_attr__( 'Row', 'fusion-builder' ),
+				'shortcode'         => 'fusion_builder_row',
+				'hide_from_builder' => true,
+			]
 		)
 	);
 }

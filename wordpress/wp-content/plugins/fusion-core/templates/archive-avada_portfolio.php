@@ -2,7 +2,7 @@
 /**
  * Portfolio Template.
  *
- * @package Fusion-Core
+ * @package Avada-Core
  */
 
 // Do not allow directly accessing this file.
@@ -15,7 +15,7 @@ if ( ! class_exists( 'Avada' ) ) {
 ?>
 <?php get_header(); ?>
 	<div id="content" <?php Avada()->layout->add_class( 'content_class' ); ?> <?php Avada()->layout->add_style( 'content_style' ); ?>>
-		<?php include 'portfolio-archive-layout.php'; ?>
+		<?php require 'portfolio-archive-layout.php'; ?>
 	</div>
 	<?php do_action( 'avada_after_content' ); ?>
 <?php

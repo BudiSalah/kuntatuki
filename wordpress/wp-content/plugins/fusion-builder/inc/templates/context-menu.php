@@ -48,6 +48,12 @@
 			// Regular element has no children.
 			pasteChild = false;
 			canRemove  = canSave = canClone = canPaste = 'element' !== pageType;
+
+			// Theme builder components can't be copied or cloned.
+			if ( -1 !== element_type.indexOf( 'fusion_tb_' ) ) {
+				canCopy = canClone = false;
+			}
+
 			break;
 
 		case 'parent_element' :
@@ -98,14 +104,14 @@
 		<# if ( canEdit ) { #>
 			<li data-action="edit"><?php esc_html_e( 'Edit', 'fusion-builder' ); ?></li>
 		<# } #>
-		<# if ( canClone ) { #>
-			<li data-action="clone"><?php esc_html_e( 'Clone', 'fusion-builder' ); ?></li>
-		<# } #>
 		<# if ( canSave ) { #>
 			<li data-action="save" data-focus="{{ elFocus }}" data-target="{{ target }}"><?php esc_html_e( 'Save', 'fusion-builder' ); ?></li>
 		<# } #>
+		<# if ( canClone ) { #>
+			<li data-action="clone"><?php esc_html_e( 'Clone', 'fusion-builder' ); ?></li>
+		<# } #>
 		<# if ( canRemove ) { #>
-			<li data-action="remove"><?php esc_html_e( 'Delete', 'fusion-builder' ); ?></li>
+			<li data-action="remove"><?php esc_html_e( 'Remove', 'fusion-builder' ); ?></li>
 		<# } #>
 		<# if ( canCopy ) { #>
 			<li data-action="copy"><?php esc_html_e( 'Copy', 'fusion-builder' ); ?></li>

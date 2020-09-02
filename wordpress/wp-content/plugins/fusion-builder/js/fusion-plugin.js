@@ -1,29 +1,25 @@
 /* global tinymce, FusionPageBuilderApp, openShortcodeGenerator */
 ( function( $ ) {
 
-if ( 'undefined' !== typeof( tinymce ) ) {
+	if ( 'undefined' !== typeof tinymce && 'undefined' !== typeof FusionPageBuilderApp ) {
 
-	tinymce.PluginManager.add( 'fusion_button', function( editor ) {
+		tinymce.PluginManager.add( 'fusion_button', function( editor ) {
 
-		if ( 'undefined' !== typeof FusionPageBuilderApp ) {
-			if ( ( true === FusionPageBuilderApp.allowShortcodeGenerator && true !== FusionPageBuilderApp.shortcodeGenerator || 'content' === editor.id || 'excerpt' === editor.id ) || ( ( jQuery( 'body' ).hasClass( 'gutenberg-editor-page' ) || jQuery( 'body' ).hasClass( 'block-editor-page' ) ) && 0 === editor.id.indexOf( 'editor-' ) ) ) {
+			if ( ( ( true === FusionPageBuilderApp.allowShortcodeGenerator && true !== FusionPageBuilderApp.shortcodeGenerator ) || 'content' === editor.id || 'excerpt' === editor.id ) || ( ( jQuery( 'body' ).hasClass( 'gutenberg-editor-page' ) || jQuery( 'body' ).hasClass( 'block-editor-page' ) ) && 0 === editor.id.indexOf( 'editor-' ) ) ) {
 
 				editor.addButton( 'fusion_button', {
-					title: 'Fusion Builder Element Generator',
-					icon: true,
-					image: FusionPageBuilderApp.fusion_builder_plugin_dir + 'images/icons/fb_logo.svg',
+					title: 'Avada Builder Element Generator',
+					icon: 'insertdatetime',
 					onclick: function() {
 
-						// Set editor that triggered shortcode generator
+						// Set editor that triggered shortcode generator.
 						FusionPageBuilderApp.shortcodeGeneratorActiveEditor = editor;
 
-						// Open shortcode generator
+						// Open shortcode generator.
 						openShortcodeGenerator( $( this ) );
 					}
 				} );
 			}
-		}
-	} );
-}
-
-} ( jQuery ) );
+		} );
+	}
+}( jQuery ) );

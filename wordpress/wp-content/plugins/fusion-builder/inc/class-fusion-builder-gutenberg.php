@@ -1,8 +1,8 @@
 <?php
 /**
- * Fusion Builder Gutenberg compatibility class.
+ * Avada Builder Gutenberg compatibility class.
  *
- * @package Fusion-Builder
+ * @package Avada-Builder
  * @since 1.7
  */
 
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Fusion Builder Gutenberg compatibility class.
+ * Avada Builder Gutenberg compatibility class.
  *
  * @since 1.7
  */
@@ -34,7 +34,7 @@ class Fusion_Builder_Gutenberg {
 	 * @access public
 	 */
 	public function __construct() {
-		add_action( 'admin_init', array( $this, 'init' ), 10 );
+		add_action( 'admin_init', [ $this, 'init' ], 10 );
 	}
 
 	/**
@@ -62,21 +62,27 @@ class Fusion_Builder_Gutenberg {
 			$post_type = 'post';
 		}
 
-		if ( is_admin() && $this->is_fb_enabled( $post_type ) ) {
+		if ( is_admin() ) {
 
-			// Alter the add new dropdown.
-			add_action( 'admin_print_footer_scripts-edit.php', array( $this, 'edit_dropdown' ), 10 );
+			if ( $this->is_fb_enabled( $post_type ) ) {
 
-			// Add gutenberg edit link.
-			add_filter( 'page_row_actions', array( $this, 'add_edit_link' ), 10, 2 );
-			add_filter( 'post_row_actions', array( $this, 'add_edit_link' ), 10, 2 );
+				// Alter the add new dropdown.
+				add_action( 'admin_print_footer_scripts-edit.php', [ $this, 'edit_dropdown' ], 10 );
+			}
+
+			if ( $this->is_fb_enabled( $post_type ) || 'admin-ajax.php' === $pagenow ) {
+
+				// Add Gutenberg edit link.
+				add_filter( 'page_row_actions', [ $this, 'add_edit_link' ], 10, 2 );
+				add_filter( 'post_row_actions', [ $this, 'add_edit_link' ], 10, 2 );
+			}
 		}
 
-		add_action( 'admin_print_footer_scripts-post-new.php', array( $this, 'adopt_to_builder' ), 10 );
-		add_action( 'admin_print_footer_scripts-post.php', array( $this, 'adopt_to_builder' ), 10 );
+		add_action( 'admin_print_footer_scripts-post-new.php', [ $this, 'adopt_to_builder' ], 10 );
+		add_action( 'admin_print_footer_scripts-post.php', [ $this, 'adopt_to_builder' ], 10 );
 
 		// Make sure G only loads with get variable if FB is new default.
-		add_filter( $this->block_editor_check_function, array( $this, 'replace_gutenberg' ), 99, 2 );
+		add_filter( $this->block_editor_check_function, [ $this, 'replace_gutenberg' ], 99, 2 );
 	}
 
 	/**
@@ -90,7 +96,7 @@ class Fusion_Builder_Gutenberg {
 		global $post_type, $post;
 
 		if ( $this->is_fb_enabled( $post_type ) && is_object( $post ) ) {
-			if ( isset( $_GET['fb-be-editor'] ) ) {
+			if ( isset( $_GET['fb-be-editor'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 				?>
 				<script type="text/javascript">
 				jQuery( window ).load( function() {
@@ -104,17 +110,16 @@ class Fusion_Builder_Gutenberg {
 				} );
 				</script>
 				<?php
-			} elseif ( isset( $_GET['gutenberg-editor'] ) ) {
-				$editor_label = esc_attr__( 'Edit With Fusion Builder', 'fusion-builder' );
+			} elseif ( isset( $_GET['gutenberg-editor'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 				$post_link = add_query_arg( 'fb-be-editor', '', get_edit_post_link( $post->ID, 'raw' ) );
-				$button       = '<a href="' . $post_link . '" id="fusion_builder_switch" class="button button-primary button-large">' . $editor_label . '</a>'; // WPCS: XSS ok.
+				$button    = '<a href="' . $post_link . '" id="fusion_builder_switch" class="button button-primary button-large"><span class="fusion-builder-button-text">' . esc_html__( 'Edit With Avada Builder', 'fusion-builder' ) . '</span></a>';
 				?>
 				<script type="text/javascript">
 				jQuery( window ).load( function() {
 					var toolbar = jQuery( '.edit-post-header-toolbar' );
 
 					if ( toolbar.length ) {
-						toolbar.append( '<?php echo $button; // WPCS: XSS ok. ?>' );
+						toolbar.append( '<?php echo $button; // phpcs:ignore WordPress.Security.EscapeOutput ?>' );
 					}
 				} );
 				</script>
@@ -135,7 +140,7 @@ class Fusion_Builder_Gutenberg {
 	public function replace_gutenberg( $use_block_editor, $post ) {
 		global $post_type;
 
-		if ( isset( $_GET['gutenberg-editor'] ) || ! $this->is_fb_enabled( $post_type ) ) { // WPCS: CSRF ok.
+		if ( isset( $_GET['gutenberg-editor'] ) || ! $this->is_fb_enabled( $post_type ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			return $use_block_editor;
 		}
 		return false;
@@ -160,62 +165,97 @@ class Fusion_Builder_Gutenberg {
 		$edit          = 'post' !== $typenow ? 'post-new.php?post_type=' . $typenow : 'post-new.php';
 		$fb_url        = add_query_arg( 'fb-be-editor', '', $edit );
 		$gutenberg_url = add_query_arg( 'gutenberg-editor', '', $edit );
-		$classic_url   = add_query_arg( 'classic-editor', '', $edit );
+		$live_editor   = apply_filters( 'fusion_load_live_editor', true );
 
-		$page_title_action_template = '<span id="fusion-split-page-title-action" class="fusion-split-page-title-action"><a href="' . $edit . '">' . esc_html__( 'Add New', 'fusion-builder' ) . '</a><span class="expander" tabindex="0" role="button" aria-haspopup="true" aria-label="' . esc_html__( 'Toggle editor selection menu', 'fusion-builder' ) . '"></span><span class="dropdown"><a href="' . $fb_url . '">' . esc_html__( 'Fusion Builder', 'fusion-builder' ) . '</a><a href="' . $gutenberg_url . '">' . esc_html__( 'Gutenberg Editor', 'fusion-builder' ) . '</a><a href="' . $classic_url . '">' . esc_html__( 'Classic Editor', 'fusion-builder' ) . '</a></span></span>';
+		$page_title_action_template  = '<span id="fusion-split-page-title-action" class="fusion-split-page-title-action">';
+		$page_title_action_template .= '<a href="' . $edit . '">' . esc_html__( 'Add New', 'fusion-builder' ) . '</a>';
+		$page_title_action_template .= '<span class="expander" tabindex="0" role="button" aria-haspopup="true" aria-label="' . esc_html__( 'Toggle editor selection menu', 'fusion-builder' ) . '"></span>';
+		$page_title_action_template .= '<span class="dropdown">';
+		$page_title_action_template .= '<a href="' . $fb_url . '">' . esc_html__( 'Avada Builder', 'fusion-builder' ) . '</a>';
 
+		if ( $live_editor ) {
+			$page_title_action_template .= '<a href="#" id="fusion-builder-live-create-post">' . esc_html__( 'Avada Live', 'fusion-builder' ) . '</a>';
+		}
+
+		$page_title_action_template .= '<a href="' . $gutenberg_url . '">' . esc_html__( 'Gutenberg Editor', 'fusion-builder' ) . '</a>';
+		$page_title_action_template .= '</span>';
+		$page_title_action_template .= '</span>';
 		?>
 		<script type="text/javascript">
-		jQuery( document ).ready( function() {
-			var pageTitleAction = ( jQuery( '.split-page-title-action' ).length ) ? jQuery( '.split-page-title-action' ) : jQuery( '.page-title-action' );
+			jQuery( document ).ready( function() {
+				jQuery( 'body' ).on ('click', '#fusion-builder-live-create-post',  function( e ) {
+					e.preventDefault();
 
-			pageTitleAction.before( '<?php echo $page_title_action_template; // WPCS: XSS ok. ?>' );
-			pageTitleAction.remove();
-			jQuery( '.fusion-split-page-title-action' ).find( '.expander' ).on( 'click', function( e ) {
-				jQuery( this ).siblings( '.dropdown' ).toggleClass( 'visible' );
+					jQuery( this ).addClass( 'sending' );
+
+					jQuery.ajax( {
+						type: 'POST',
+						url: '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>',
+						dataType: 'JSON',
+						data: {
+							action: 'fusion_create_post',
+							fusion_load_nonce: '<?php echo esc_html( wp_create_nonce( 'fusion_load_nonce' ) ); ?>',
+							post_type: '<?php echo esc_html( $typenow ); ?>'
+						},
+						success: function( response ) {
+							console.log( response.permalink );
+							window.location = response.permalink + '&fb-edit=1';
+
+						}
+					} );
+				} );
+
+				var pageTitleAction = ( jQuery( '.split-page-title-action' ).length ) ? jQuery( '.split-page-title-action' ) : jQuery( '.page-title-action' ).first();
+
+				pageTitleAction.before( '<?php echo $page_title_action_template; // phpcs:ignore WordPress.Security.EscapeOutput ?>' );
+				pageTitleAction.remove();
+				jQuery( '.fusion-split-page-title-action' ).find( '.expander' ).on( 'click', function( e ) {
+					jQuery( this ).siblings( '.dropdown' ).toggleClass( 'visible' );
+				} );
 			} );
-		} );
 		</script>
 		<style>
 			.fusion-split-page-title-action {
-				display: inline-block;
+				display: inline-flex;
+				align-items: center;
 				position: relative;
 			}
 			.fusion-split-page-title-action a,
 			.fusion-split-page-title-action a:active,
 			.fusion-split-page-title-action .expander {
 				padding: 6px 10px;
-				position: relative;
-				top: -3px;
 				text-decoration: none;
-				border: 1px solid #ccc;
-				border-radius: 2px;
-				background: #f7f7f7;
+				border: 1px solid #0071a1;
+				border-radius: 0 2px 2px 0;;
+				background: #f3f5f6;
 				text-shadow: none;
 				font-weight: 600;
 				font-size: 13px;
 				line-height: normal;
-				color: #0073aa;
+				color: #0071a1;
 				cursor: pointer;
 				outline: 0;
 			}
 			.fusion-split-page-title-action > a {
-				vertical-align: middle;
-				width: 80px;
 				display: inline-block;
+				height: 30px;
+				width: 95px;
+				box-sizing: border-box;
 			}
 			.fusion-split-page-title-action .expander {
-				outline: none;
-				width: 31px;
 				display: inline-block;
+				position: relative;
+				margin-left: -2px;
 				padding: 0;
-				height: 29px;
-				vertical-align: middle;
+				height: 30px;
+				width: 31px;
+				box-sizing: border-box;
+				outline: none;
 			}
 			.fusion-split-page-title-action .expander:after {
 				content: "\f140";
 				font: 400 20px/.5 dashicons;
-				speak: none;
+				speak: never;
 				top: 50%;
 				left: 50%;
 				position: absolute;
@@ -224,12 +264,12 @@ class Fusion_Builder_Gutenberg {
 			}
 			.fusion-split-page-title-action .dropdown {
 				display: none;
-				width: 135px;
+				width: 150px;
 			}
 			.fusion-split-page-title-action .dropdown.visible {
 				display: block;
 				position: absolute;
-				top: 28px;
+				top: 100%;
 				z-index: 1;
 			}
 			.fusion-split-page-title-action .dropdown.visible a {
@@ -238,18 +278,58 @@ class Fusion_Builder_Gutenberg {
 				margin: -1px 0;
 				padding-right: 9px;
 			}
+			.fusion-split-page-title-action .dropdown.visible #fusion-builder-live-create-post {
+				padding-right: 9px;
+			}
 			.fusion-split-page-title-action a:hover,
 			.fusion-split-page-title-action .expander:hover {
-				border-color: #008EC2;
-				background: #00a0d2;
-				color: #fff;
+				background: #f1f1f1;
+				border-color: #016087;
+				color: #016087;
 			}
+			@keyframes rotate {
+				0% {
+					transform: rotate(0deg);
+				}
+
+				100% {
+					transform: rotate(360deg);
+				}
+			}
+			#fusion-builder-live-create-post {
+				padding-right: 25px;
+			}
+			#fusion-builder-live-create-post.sending:after {
+				opacity: 1;
+			}
+			#fusion-builder-live-create-post:after {
+				content: '';
+				position: absolute;
+				top: 50%;
+				right: 9px;
+				margin-top: -4px;
+				width: 5px;
+				height: 5px;
+				border: 3px solid;
+				border-left-color: transparent;
+				border-radius: 50%;
+				opacity: 0;
+				transition-duration: 0.5s;
+				transition-property: opacity;
+				animation-duration: 1s;
+				animation-iteration-count: infinite;
+				animation-name: rotate;
+				animation-timing-function: linear;
+
+
+			}
+
 		</style>
 		<?php
 	}
 
 	/**
-	 * Adds specigic Gutenberg edit link to the posts hover menu.
+	 * Adds specific Gutenberg edit link to the posts hover menu.
 	 *
 	 * @since 1.7
 	 * @access public
@@ -259,52 +339,73 @@ class Fusion_Builder_Gutenberg {
 	 * @return array          Updated post actions.
 	 */
 	public function add_edit_link( $actions, $post ) {
-		if ( ! function_exists( $this->block_editor_check_function ) ) {
+		if ( ! function_exists( $this->block_editor_check_function ) || ( isset( $_GET['post_status'] ) && 'trash' === $_GET['post_status'] ) || $this->is_live_edit_disabled( $post ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			return $actions;
 		}
 
-		$edit_url = get_edit_post_link( $post->ID, 'raw' );
+		$edit_url      = get_edit_post_link( $post->ID, 'raw' );
+		$fb_live_url   = add_query_arg( 'fb-edit', '1', get_permalink( $post->ID ) );
 		$gutenberg_url = add_query_arg( 'gutenberg-editor', '', $edit_url );
-		$classic_url = add_query_arg( 'classic-editor', '', $edit_url );
+		$live_editor   = apply_filters( 'fusion_load_live_editor', true );
+		$edit_action   = [];
 
 		// Build the classic edit action. See also: WP_Posts_List_Table::handle_row_actions().
-		$title       = _draft_or_post_title( $post->ID );
-		$edit_action = array(
-			'gutenberg' => sprintf(
+		$title = _draft_or_post_title( $post->ID );
+
+		if ( $live_editor ) {
+			$edit_action['fusion_builder_live'] = sprintf(
 				'<a href="%s" aria-label="%s">%s</a>',
-				esc_url( $gutenberg_url ),
+				esc_url( $fb_live_url ),
 				esc_attr(
 					sprintf(
 						/* translators: %s: post title */
-						__( 'Edit &#8220;%s&#8221; in the Gutenberg editor', 'fusion-builder' ),
+						__( 'Edit &#8220;%s&#8221; in Avada Live', 'fusion-builder' ),
 						$title
 					)
 				),
-				__( 'Gutenberg Editor', 'fusion-builder' )
+				esc_html__( 'Avada Live', 'fusion-builder' )
+			);
+		}
+
+		$edit_action['gutenberg'] = sprintf(
+			'<a href="%s" aria-label="%s">%s</a>',
+			esc_url( $gutenberg_url ),
+			esc_attr(
+				sprintf(
+					/* translators: %s: post title */
+					__( 'Edit &#8220;%s&#8221; in the Gutenberg editor', 'fusion-builder' ),
+					$title
+				)
 			),
-			'classic' => sprintf(
-				'<a href="%s" aria-label="%s">%s</a>',
-				esc_url( $classic_url ),
-				esc_attr(
-					sprintf(
-						/* translators: %s: post title */
-						__( 'Edit &#8220;%s&#8221; in the Classic editor', 'fusion-builder' ),
-						$title
-					)
-				),
-				__( 'Classic Editor', 'fusion-builder' )
-			),
+			esc_html__( 'Gutenberg Editor', 'fusion-builder' )
 		);
 
 		// Insert the Gutenberg Edit action after the Edit action.
-		$edit_offset = array_search( 'edit', array_keys( $actions ), true );
-		$actions     = array_merge(
+		$actions_keys = array_keys( $actions );
+		$edit_offset  = array_search( 'edit', $actions_keys, true );
+		$actions      = array_merge(
 			array_slice( $actions, 0, $edit_offset + 1 ),
 			$edit_action,
 			array_slice( $actions, $edit_offset + 1 )
 		);
 
 		return $actions;
+	}
+
+	/**
+	 * Check if live editing should be available for the post type.
+	 *
+	 * @since 2.2
+	 * @access public
+	 * @param object $post Post to check.
+	 * @return bool
+	 */
+	public function is_live_edit_disabled( $post ) {
+
+		// Disabled post types.
+		$disabled = [ 'fusion_icons' ];
+
+		return isset( $post ) && in_array( $post->post_type, $disabled, true ) ? true : false;
 	}
 
 	/**
@@ -316,22 +417,8 @@ class Fusion_Builder_Gutenberg {
 	 * @return bool
 	 */
 	public function is_fb_enabled( $post_type ) {
-
-		$options = get_option( 'fusion_builder_settings', array() );
-
-		if ( ! empty( $options ) && isset( $options['post_types'] ) ) {
-			// If there are options saved, used them.
-			$post_types = ( ' ' === $options['post_types'] ) ? array() : $options['post_types'];
-			// Add fusion_element to allowed post types ( bc ).
-			$post_types[] = 'fusion_element';
-			$activated    = apply_filters( 'fusion_builder_allowed_post_types', $post_types );
-		} else {
-			// Otherwise use defaults.
-			$activated = FusionBuilder::default_post_types();
-		}
-
 		if ( $post_type ) {
-			return in_array( $post_type, $activated, true );
+			return in_array( $post_type, FusionBuilder::allowed_post_types(), true );
 		}
 		return false;
 	}

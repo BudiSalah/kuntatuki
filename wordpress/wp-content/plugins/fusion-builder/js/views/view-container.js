@@ -1,4 +1,7 @@
-/* global FusionPageBuilderApp, alert, fusionBuilderText, FusionPageBuilderEvents, FusionPageBuilderViewManager, fusionAllElements, FusionPageBuilderElements, fusionHistoryManager */
+/* global FusionPageBuilderApp, fusionBuilderText, FusionPageBuilderEvents, FusionPageBuilderViewManager, fusionAllElements, FusionPageBuilderElements, fusionHistoryManager, fusionBuilderConfig */
+/* eslint no-unused-vars: 0 */
+/* eslint no-alert: 0 */
+/* eslint no-shadow: 0 */
 var FusionPageBuilder = FusionPageBuilder || {};
 
 ( function( $ ) {
@@ -27,11 +30,13 @@ var FusionPageBuilder = FusionPageBuilder || {};
 			},
 
 			render: function() {
+				this.setValues();
+
 				this.$el.html( this.template( this.model.toJSON() ) );
 
 				if ( 'undefined' !== typeof this.model.attributes.params.admin_toggled && 'yes' === this.model.attributes.params.admin_toggled ) {
-						this.$el.addClass( 'fusion-builder-section-folded' );
-						this.$el.find( 'span' ).toggleClass( 'dashicons-arrow-up' ).toggleClass( 'dashicons-arrow-down' );
+					this.$el.addClass( 'fusion-builder-section-folded' );
+					this.$el.find( 'span' ).toggleClass( 'dashicons-arrow-up' ).toggleClass( 'dashicons-arrow-down' );
 				}
 
 				// If global, make it.
@@ -43,6 +48,36 @@ var FusionPageBuilder = FusionPageBuilder || {};
 				this.updateStatusIcons();
 
 				return this;
+			},
+
+			setValues: function() {
+				var params   = this.model.get( 'params' ),
+					defaults = 'object' === typeof fusionAllElements ? fusionAllElements.fusion_builder_container.defaults : {},
+					values   = jQuery.extend( true, {}, defaults, params );
+
+				this.model.set( 'values', values );
+			},
+
+			updateFlexOptions: function() {
+				var values,
+					extraClasses = 'fusion-builder-section-content fusion-builder-data-cid';
+
+				this.setValues();
+
+				values = this.model.get( 'values' );
+
+				if ( 'flex' === values.type ) {
+					extraClasses += ' fusion-flex-container';
+					extraClasses += ' fusion-flex-align-items-' + values.flex_align_items;
+					if ( 'stretch' !== values.align_content ) {
+						extraClasses += ' fusion-flex-align-content-' + values.align_content;
+					}
+					if ( 'flex-start' !== values.flex_justify_content ) {
+						extraClasses += ' fusion-flex-justify-content-' + values.flex_justify_content;
+					}
+				}
+
+				this.$el.find( '.fusion-builder-section-content' ).attr( 'class', extraClasses );
 			},
 
 			updateStatusIcons: function() {
@@ -99,11 +134,17 @@ var FusionPageBuilder = FusionPageBuilder || {};
 				}
 
 				$.each( jQuery( 'ul.fusion-page-layouts.fusion-layout-sections li' ), function( index, value ) { // jshint ignore:line
-					var templateName = jQuery( this ).find( 'h4.fusion-page-layout-title' ).html().split( '<div ' )[0];
-					if ( elementName.toLowerCase().trim() === templateName.toLowerCase().trim() ) {
-						alert( fusionBuilderText.duplicate_element_name_error );
-						isDuplicate = true;
-						return false;
+					var $title = jQuery( this ).find( 'h4.fusion-page-layout-title' ),
+						templateName;
+
+					if ( $title.length ) {
+						templateName = $title.html().split( '<div ' )[ 0 ];
+						templateName = templateName.replace( /\u2013|\u2014/g, '-' );
+						if ( elementName.toLowerCase().trim() === templateName.toLowerCase().trim() ) {
+							alert( fusionBuilderText.duplicate_element_name_error );
+							isDuplicate = true;
+							return false;
+						}
 					}
 				} );
 
@@ -150,6 +191,7 @@ var FusionPageBuilder = FusionPageBuilder || {};
 					} );
 
 				} else {
+					FusionPageBuilderApp.layoutIsSaving = false;
 					alert( fusionBuilderText.please_enter_element_name );
 				}
 			},
@@ -214,6 +256,16 @@ var FusionPageBuilder = FusionPageBuilder || {};
 					event.preventDefault();
 				}
 
+				// Set correct type param based on TO setting in case 'old' container is edited.
+				if ( 'undefined' === typeof $viewSettings.model.attributes.params.type ) {
+					$viewSettings.model.attributes.params.type = 1 === parseInt( fusionBuilderConfig.container_legacy_support ) ? 'legacy' : 'flex';
+				}
+
+				// We don't allow 'legacy' containers in header layout sections.
+				if ( 1 === parseInt( fusionBuilderConfig.is_header_layout_section_edited ) ) {
+					$viewSettings.model.attributes.params.type = 'flex';
+				}
+
 				// Get settings view
 				$modalView = new FusionPageBuilder.ModalView( $viewSettings );
 
@@ -224,16 +276,37 @@ var FusionPageBuilder = FusionPageBuilder || {};
 			},
 
 			hideHundredPercentOption: function() {
-				var $currentTemplate = jQuery( '#page_template' ),
-					$currentPortfolioWidth = jQuery( '#pyre_portfolio_width_100' ).val(),
-					$option = jQuery( '.fusion_builder_container li[data-option-id="hundred_percent"]' );
+				var currentTemplate            = jQuery( '#page_template' ),
+					currentPostWidth           = jQuery( '#pyre_blog_width_100' ).val(),
+					currentPortfolioWidth      = jQuery( '#pyre_portfolio_width_100' ).val(),
+					option                     = jQuery( '.fusion_builder_container li[data-option-id="hundred_percent"]' ),
+					is_content_override_active = 'object' === typeof fusionBuilderConfig.is_content_override_active ? true : false;
 
-				if ( '100-width.php' !== $currentTemplate.val() && 'yes' !== $currentPortfolioWidth ) {
+				// Normal post and content override is not active.
+				if ( ! jQuery( 'body' ).hasClass( 'fusion-tb-section-edit' ) && false === is_content_override_active ) {
 
-					if ( 'undefined' === typeof $currentPortfolioWidth || 'no' === $currentPortfolioWidth || ( 'default' === $currentPortfolioWidth && '' === FusionPageBuilderApp.fullWidth ) ) {
+					// Check the post type.
+					if ( 'undefined' !== typeof currentPostWidth ) {
 
-						$option.hide();
+						// Blog post.
+						if ( 'no' === currentPostWidth || ( 'default' === currentPostWidth && '' === FusionPageBuilderApp.fullWidth ) ) {
+							option.hide();
+						}
+
+					} else if ( 'undefined' !== typeof currentPortfolioWidth ) {
+
+						// Portfolio post.
+						if ( 'no' === currentPortfolioWidth || ( 'default' === currentPortfolioWidth && '' === FusionPageBuilderApp.fullWidth ) ) {
+							option.hide();
+						}
+
+					} else if ( '100-width.php' !== currentTemplate.val() ) {
+
+						// Page with default template.
+						option.hide();
 					}
+				} else if ( 'no' === jQuery( '#pyre_fusion_tb_section_width_100' ).val() ) { // Template Builder.
+					option.hide();
 				}
 			},
 
@@ -258,28 +331,30 @@ var FusionPageBuilder = FusionPageBuilder || {};
 				// Process default options for shortcode.
 				_.each( defaultParams, function( param ) {
 					if ( _.isObject( param.value ) ) {
-						value = param.default;
+						value = param[ 'default' ];
 					} else {
 						value = param.value;
 					}
-					params[param.param_name] = value;
+					params[ param.param_name ] = value;
 
 					if ( 'dimension' === param.type && _.isObject( param.value ) ) {
 						_.each( param.value, function( value, name ) {
-							params[name] = value;
+							params[ name ] = value;
 						} );
 					}
 				} );
 
-				this.collection.add( [ {
-					type: 'fusion_builder_container',
-					added: 'manually',
-					element_type: 'fusion_builder_container',
-					cid: elementID,
-					params: params,
-					view: this,
-					created: 'auto'
-				} ] );
+				this.collection.add( [
+					{
+						type: 'fusion_builder_container',
+						added: 'manually',
+						element_type: 'fusion_builder_container',
+						cid: elementID,
+						params: params,
+						view: this,
+						created: 'auto'
+					}
+				] );
 
 				FusionPageBuilderApp.activeModal = '';
 			},
@@ -287,14 +362,16 @@ var FusionPageBuilder = FusionPageBuilder || {};
 			addRow: function() {
 				var elementID = FusionPageBuilderViewManager.generateCid();
 
-				this.collection.add( [ {
-					type: 'fusion_builder_row',
-					element_type: 'fusion_builder_row',
-					added: 'manually',
-					cid: elementID,
-					parent: this.model.get( 'cid' ),
-					view: this
-				} ] );
+				this.collection.add( [
+					{
+						type: 'fusion_builder_row',
+						element_type: 'fusion_builder_row',
+						added: 'manually',
+						cid: elementID,
+						parent: this.model.get( 'cid' ),
+						view: this
+					}
+				] );
 			},
 
 			cloneContainer: function( event ) {
@@ -502,11 +579,13 @@ var FusionPageBuilder = FusionPageBuilder || {};
 
 				this.typingTimer = setTimeout( function() {
 
-					model.attributes.params.admin_label = input.val();
+					// Strip square brackets.
+					model.attributes.params.admin_label = input.val().replace( /[[\]]+/g, '' );
+
 					FusionPageBuilderEvents.trigger( 'fusion-element-edited' );
 
 				}, this.doneTypingInterval );
 			}
 		} );
 	} );
-} ( jQuery ) );
+}( jQuery ) );

@@ -1,0 +1,9 @@
+1350 width
+
+max-width 1270px
+padding-x 30px
+
+
+inner row
+padding-left: 90px
+padding-right: 60px

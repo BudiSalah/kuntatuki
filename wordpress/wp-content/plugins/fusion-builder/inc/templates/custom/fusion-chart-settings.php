@@ -1,16 +1,18 @@
 <?php
-global $fusion_settings;
-if ( ! $fusion_settings ) {
-	$fusion_settings = Fusion_Settings::get_instance();
-}
+/**
+ * Underscore.js template.
+ *
+ * @package fusion-builder
+ */
 
-$border_size = $fusion_settings->get( 'chart_border_size' );
+$fusion_settings = fusion_get_fusion_settings();
+$border_size     = $fusion_settings->get( 'chart_border_size' );
 ?>
 <script type="text/template" id="fusion-builder-block-module-settings-chart-template">
 
 	<div class="fusion-builder-modal-top-container">
-		<# if ( typeof( fusionAllElements[atts.element_type] ) !== 'undefined' ) { #>
-				<h2>{{ fusionAllElements[atts.element_type].name }}</h2>
+		<# if ( 'undefined' !== typeof fusionAllElements[atts.element_type] ) { #>
+				<h2>{{ fusionAllElements[ atts.element_type ].name }}</h2>
 		<# }; #>
 
 		<div class="fusion-builder-modal-close fusiona-plus2"></div>
@@ -23,7 +25,7 @@ $border_size = $fusion_settings->get( 'chart_border_size' );
 	<div class="fusion-builder-modal-bottom-container">
 		<a href="#" class="fusion-builder-modal-save"><span>
 
-			<# if ( FusionPageBuilderApp.shortcodeGenerator === true && FusionPageBuilderApp.shortcodeGeneratorMultiElementChild !== true ) { #>
+			<# if ( true === FusionPageBuilderApp.shortcodeGenerator && true !== FusionPageBuilderApp.shortcodeGeneratorMultiElementChild ) { #>
 				{{ fusionBuilderText.insert }}
 			<# } else { #>
 				{{ fusionBuilderText.save }}
@@ -380,22 +382,22 @@ $border_size = $fusion_settings->get( 'chart_border_size' );
 
 							<div class="option-field fusion-builder-option-container">
 								<div class="fusion-builder-dimension">
-									<span class="add-on"><i class="dashicons dashicons-arrow-up-alt"></i></span>
+									<span class="add-on"><i class="dashicons dashicons-arrow-up-alt" aria-hidden="true"></i></span>
 									<input type="text" name="padding_top" id="padding_top" value="{{ padding_top }}">
 								</div>
 
 								<div class="fusion-builder-dimension">
-									<span class="add-on"><i class="dashicons dashicons-arrow-right-alt"></i></span>
+									<span class="add-on"><i class="dashicons dashicons-arrow-right-alt" aria-hidden="true"></i></span>
 									<input type="text" name="padding_right" id="padding_right" value="{{ padding_right }}">
 								</div>
 
 								<div class="fusion-builder-dimension">
-									<span class="add-on"><i class="dashicons dashicons-arrow-down-alt"></i></span>
+									<span class="add-on"><i class="dashicons dashicons-arrow-down-alt" aria-hidden="true"></i></span>
 									<input type="text" name="padding_bottom" id="padding_bottom" value="{{ padding_bottom }}">
 								</div>
 
 								<div class="fusion-builder-dimension">
-									<span class="add-on"><i class="dashicons dashicons-arrow-left-alt"></i></span>
+									<span class="add-on"><i class="dashicons dashicons-arrow-left-alt" aria-hidden="true"></i></span>
 									<input type="text" name="padding_left" id="padding_left" value="{{ padding_left }}">
 								</div>
 							</div>

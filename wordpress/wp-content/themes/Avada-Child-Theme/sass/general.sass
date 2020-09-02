@@ -1,0 +1,38 @@
+body #wrapper
+    // temp
+    .fusion-header
+        padding-top: 20px
+
+    .fusion-logo
+        margin-top: 0
+    // -temp
+
+    .sc_hero-btn
+        padding-left: 10px
+        padding-right: 10px
+        min-width: 110px
+
+    @supports (flex-direction: row)
+        .sc_flex-row > div:first-of-type
+            display: flex
+            flex-direction: row
+    @supports not (flex-direction: row)
+        .sc_flex-row > div:first-of-type
+            display: block
+            > *
+                display: inline-block
+                float: left
+                width: 50%
+
+    .home-section2-custom-width > div:first-of-type
+        max-width: 230px
+
+    .sc_section2-custom-height
+        @media screen and (min-width: 992px)
+            min-height: 90px
+
+    .home-quote-custom-width > div:first-of-type
+        max-width: 585px
+        margin: auto
+
+        
