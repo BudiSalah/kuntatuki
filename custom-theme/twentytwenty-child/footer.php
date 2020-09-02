@@ -12,50 +12,50 @@
  */
 
 ?>
-			<footer id="site-footer" role="contentinfo" class="header-footer-group">
+	<footer id="site-footer" role="contentinfo" class="header-footer-group">
 
-				<div class="section-inner">
+		<section class="container">
+			<div class="row">
+				<div class="col">
+				<div class="row sc_ifu-section">
+					<div class="col row custom-images-icons-wrapper">
+						<img src="http://demo10.demosaitti.com/wp-content/uploads/2020/09/avada-movers-johnsmith-final.jpg"
+							class="img-fluid col" alt="Responsive image">
+						<img src="http://demo10.demosaitti.com/wp-content/uploads/2020/09/avada-movers-johnsmith-final.jpg"
+							class="img-fluid col" alt="Responsive image">
+					</div>
 
-					<div class="footer-credits">
+					<h4 class="col">Neuvontamme palvelee sinua arkisin klo10 - 16.</h4>
+				</div>
+				</div>
+				<div class="col text-right">
+					<h3>Neuvonnan puhelin</h3>
+					<h2>+358 50 591 2746</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<p>Kuntatuki palvelun tuottaa Datakratia Oy</p>
 
-						<p class="footer-copyright">&copy;
-							<?php
-							echo date_i18n(
-								/* translators: Copyright date format, see https://www.php.net/date */
-								_x( 'Y', 'copyright date format', 'twentytwenty' )
-							);
-							?>
-							<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php bloginfo( 'name' ); ?></a>
-						</p><!-- .footer-copyright -->
+					<div class="row">
+						<div class="col-1 p-0">
+							<img src="http://demo10.demosaitti.com/wp-content/uploads/2020/09/circls-icon.png"
+							class="img-fluid" alt="Responsive image">
+						</div>
+						<div class="col">
+							<h3>Datakratia</h3>
+						</div>
+					</div>
+				</div>
+				<div class="col text-right">
+					<a href="#" class="btn btn-primary">PALVELUSTA</a>
+				</div>
+			</div>
+		</section>
 
-						<p class="powered-by-wordpress">
-							<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'twentytwenty' ) ); ?>">
-								<?php _e( 'Powered by WordPress', 'twentytwenty' ); ?>
-							</a>
-						</p><!-- .powered-by-wordpress -->
+	</footer><!-- #site-footer -->
 
-					</div><!-- .footer-credits -->
-
-					<a class="to-the-top" href="#site-header">
-						<span class="to-the-top-long">
-							<?php
-							/* translators: %s: HTML character for up arrow. */
-							printf( __( 'To the top %s', 'twentytwenty' ), '<span class="arrow" aria-hidden="true">&uarr;</span>' );
-							?>
-						</span><!-- .to-the-top-long -->
-						<span class="to-the-top-short">
-							<?php
-							/* translators: %s: HTML character for up arrow. */
-							printf( __( 'Up %s', 'twentytwenty' ), '<span class="arrow" aria-hidden="true">&uarr;</span>' );
-							?>
-						</span><!-- .to-the-top-short -->
-					</a><!-- .to-the-top -->
-
-				</div><!-- .section-inner -->
-
-			</footer><!-- #site-footer -->
-
-		<?php wp_footer(); ?>
+	<?php wp_footer(); ?>
 
 	</body>
 </html>
