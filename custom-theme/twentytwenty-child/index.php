@@ -7,7 +7,7 @@
  * It is used to display a page when nothing more specific matches a query.
  * E.g., it puts together the home page when no home.php file exists.
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
+ * @link httpss://developer.wordpress.org/themes/basics/template-hierarchy/
  *
  * @package WordPress
  * @subpackage Twenty_Twenty
@@ -22,37 +22,40 @@ get_header();
 	<section id="hero" class="container">
 		<div class="row">
 			<div class="col">
-				<h2 class="title-heading">Kaikki kuntien haettavissa olevat tuet yhdestä paikasta.</h2>
-				<p>
-					Kunnille suunnatuista rahoituksista jää hakematta yli <strong>40%</strong> pelkästään hakuprosessien
-					ja kohteiden vaikean hahmottamisen vuoksi. Nyt <strong>Kuntatuki</strong> tarjoaa helpon palvelun,
-					mistä jokainen kunta voi hakea yhdestä paikasta kaikki tarjolla olevat tuet ja tehdä hakemukset.
-					Tilaamalla palvelun saat myös ilmoitukset saapuneista uusista hakumahdollisuuksista sähköpostiisi.
-				</p>
-				<div class="sc_hero-btns-wrapper">
-					<a href="#" class="btn btn-primary">PYYDÄ TUNNUKSET</a>
-					<a href="#" class="btn btn-primary">PALVELUSTA</a>
-					<a href="#" class="btn btn-primary">KIRJAUDU</a>
-				</div>
+				<div class="inner-row">
+					<h2 class="title-heading">Kaikki kuntien haettavissa olevat tuet yhdestä paikasta.</h2>
+					<p>
+						Kunnille suunnatuista rahoituksista jää hakematta yli <strong>40%</strong> pelkästään hakuprosessien
+						ja kohteiden vaikean hahmottamisen vuoksi. Nyt <strong>Kuntatuki</strong> tarjoaa helpon palvelun,
+						mistä jokainen kunta voi hakea yhdestä paikasta kaikki tarjolla olevat tuet ja tehdä hakemukset.
+						Tilaamalla palvelun saat myös ilmoitukset saapuneista uusista hakumahdollisuuksista sähköpostiisi.
+					</p>
+					<div class="sc_hero-btns-wrapper">
+						<a href="#" class="btn btn-primary ocean">PYYDÄ TUNNUKSET</a>
+						<a href="#" class="btn btn-primary lightgray">PALVELUSTA</a>
+						<a href="#" class="btn btn-primary darkblue">KIRJAUDU</a>
+					</div>
 
-				<hr>
+					<hr>
 
-				<div class="row sc_ifu-section">
-					<h4 class="col">Jos sinulla on kysyttää tai haluat varata demo -ajan, niin voit soittaa alla olevaan
-						numeroon:</h4>
-					<div class="col row custom-images-icons-wrapper">
-						<img src="http://demo10.demosaitti.com/wp-content/uploads/2020/09/avada-movers-johnsmith-final.jpg"
-							class="img-fluid col" alt="Responsive image">
-						<img src="http://demo10.demosaitti.com/wp-content/uploads/2020/09/avada-movers-johnsmith-final.jpg"
-							class="img-fluid col" alt="Responsive image">
+					<div class="row sc_ifu-section">
+						<div class="col">
+							<h4>Jos sinulla on kysyttää tai haluat varata demo -ajan, niin voit soittaa alla olevaan
+							numeroon:</h4>
+							<h2 class="ocean-color-text">+358 50 591 2746</h2>
+						</div>
+						<div class="col-3 row custom-images-icons-wrapper">
+							<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/avada-movers-johnsmith-final.jpg"
+								class="img-fluid col" alt="Responsive image">
+							<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/avada-movers-johnsmith-final.jpg"
+								class="img-fluid col" alt="Responsive image">
+						</div>
 					</div>
 				</div>
-
-				<h2>+358 50 591 2746</h2>
 			</div>
 
 			<div class="col">
-				<img src="http://demo10.demosaitti.com/wp-content/uploads/2020/09/board-with-pig.jpg" class="img-fluid"
+				<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/board-with-pig.jpg" class="img-fluid"
 					alt="Responsive image">
 			</div>
 		</div>
@@ -63,23 +66,23 @@ get_header();
 
 		<div id="help-steps" class="row">
 			<div class="col step-wrapper">
-				<img src="http://demo10.demosaitti.com/wp-content/uploads/2020/09/help-icon.png" class="img-fluid step-icon" alt="Responsive image">
+				<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/help-icon.png" class="img-fluid step-icon" alt="Responsive image">
 				<h3 class="step-title">Helppo ja nopea käyttää.</h3>
 				<p class="step-text">Lorem ipsum dolor sit amet.</p>
 			</div>
 			<div class="col step-wrapper">
-				<img src="http://demo10.demosaitti.com/wp-content/uploads/2020/09/team-icon.jpg" class="img-fluid step-icon" alt="Responsive image">
-				<h3 class="step-title">Helppo ja nopea käyttää.</h3>
+				<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/team-icon.jpg" class="img-fluid step-icon" alt="Responsive image">
+				<h3 class="step-title">Jokaiselle kunnan yksikölle räätälöity.</h3>
 				<p class="step-text">Lorem ipsum dolor sit amet.</p>
 			</div>
 			<div class="col step-wrapper">
-				<img src="http://demo10.demosaitti.com/wp-content/uploads/2020/09/calc-icon.png" class="img-fluid step-icon" alt="Responsive image">
-				<h3 class="step-title">Helppo ja nopea käyttää.</h3>
+				<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/calc-icon.png" class="img-fluid step-icon" alt="Responsive image">
+				<h3 class="step-title">Näet palvelusta haetut ja saadut tuet.</h3>
 				<p class="step-text">Lorem ipsum dolor sit amet.</p>
 			</div>
 			<div class="col step-wrapper">
-				<img src="http://demo10.demosaitti.com/wp-content/uploads/2020/09/compny-icon.png" class="img-fluid step-icon" alt="Responsive image">
-				<h3 class="step-title">Helppo ja nopea käyttää.</h3>
+				<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/compny-icon.png" class="img-fluid step-icon" alt="Responsive image">
+				<h3 class="step-title">Kaikki yhdestä paikasta.</h3>
 				<p class="step-text">Lorem ipsum dolor sit amet.</p>
 			</div>
 		</div>
@@ -92,7 +95,9 @@ get_header();
 			<p class="quote-author">– Tuomas Hirvonen, Vesilahden Kunnan johtaja</p>
 		</blockquote>
 
-		<a href="#" class="btn btn-primary">PALVELUSTA</a>
+		<div class="center-btn-wrapper">
+			<a href="#" class="btn btn-primary ocean">PYYDÄ TUNNUKSET</a>
+		</div>
 	</section>
 
 </main><!-- #site-content -->

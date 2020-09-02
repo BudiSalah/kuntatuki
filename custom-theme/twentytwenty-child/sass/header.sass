@@ -1,0 +1,41 @@
+@import "var.sass"
+
+body
+    #site-header
+        nav
+            .menu-item
+                margin-left: 35px
+                a
+                    position: relative
+                    color: $black-color
+                    font-size: 14px
+                    text-decoration: none
+                    &:after
+                        content: ""
+                        position: absolute
+                        left: 0
+                        bottom: -4px
+                        width: 0
+                        border: 1px solid $ocean-color
+                        transition: .2s width linear
+                        opacity: 0
+
+                    &:hover
+                        color: $ocean-color
+                    
+                        &:after
+                            width: 100%
+                            opacity: 1
+
+            #menu-item-250
+                margin-top: -4px
+
+                a
+                    padding: 11px 10px
+                    background-color: $darkblue-color
+                    color: #ffffff
+                    font-weight: 900
+                    letter-spacing: 2px
+
+                    &:after
+                        opacity: 0 !important

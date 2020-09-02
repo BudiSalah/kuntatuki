@@ -19,30 +19,30 @@
 				<div class="col">
 				<div class="row sc_ifu-section">
 					<div class="col row custom-images-icons-wrapper">
-						<img src="http://demo10.demosaitti.com/wp-content/uploads/2020/09/avada-movers-johnsmith-final.jpg"
+						<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/avada-movers-johnsmith-final.jpg"
 							class="img-fluid col" alt="Responsive image">
-						<img src="http://demo10.demosaitti.com/wp-content/uploads/2020/09/avada-movers-johnsmith-final.jpg"
+						<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/avada-movers-johnsmith-final.jpg"
 							class="img-fluid col" alt="Responsive image">
 					</div>
 
 					<h4 class="col">Neuvontamme palvelee sinua arkisin klo10 - 16.</h4>
 				</div>
 				</div>
-				<div class="col text-right">
+				<div class="col text-right footer-phone-title">
 					<h3>Neuvonnan puhelin</h3>
-					<h2>+358 50 591 2746</h2>
+					<h2 class="ocean-color-text">+358 50 591 2746</h2>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row suported-by-wrapper">
 				<div class="col">
 					<p>Kuntatuki palvelun tuottaa Datakratia Oy</p>
 
 					<div class="row">
 						<div class="col-1 p-0">
-							<img src="http://demo10.demosaitti.com/wp-content/uploads/2020/09/circls-icon.png"
+							<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/circls-icon.png"
 							class="img-fluid" alt="Responsive image">
 						</div>
-						<div class="col">
+						<div class="col title-wrapper">
 							<h3>Datakratia</h3>
 						</div>
 					</div>

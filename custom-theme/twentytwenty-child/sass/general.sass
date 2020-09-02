@@ -1,0 +1,75 @@
+body
+    @for $i from 1 through 6
+        h#{$i}
+            font-family: 'Roboto', sans-serif
+            line-height: 1.2
+        
+        p, a, li, span, div
+            font-family: 'Roboto', sans-serif
+            line-height: 1.2
+
+    @media screen and (min-width: 1200px)
+        .header-inner,
+        .container
+            max-width: 1270px
+            padding-left: 0
+            padding-right: 0
+
+        .container
+            padding-left: 90px
+            padding-right: 90px
+
+    h1
+        font-size: $h1-size
+        color: $black-color
+        font-weight: 500
+
+    h2
+        font-size: $h2-size
+        color: $black-color
+        font-weight: 500
+
+    h3
+        color: $black-color  
+
+    h4
+        font-size: $h4-size
+        color: $black-color
+        font-weight: 900
+
+    .btn
+        padding: 11px 10px
+        font-size: 13px
+        font-weight: 900
+        color: #ffffff
+        border-radius: 0
+        border: none
+        letter-spacing: 2px
+
+        &:hover
+            filter: contrast(1.2)
+
+    .ocean,
+    .ocean:hover
+        background-color: $ocean-color
+    .lightgray,
+    .lightgray:hover
+        background-color: $lightgray-color
+    .darkblue,
+    .darkblue:hover
+        background-color: $darkblue-color
+
+    .custom-images-icons-wrapper
+        justify-content: flex-end
+
+        img
+            max-width: 35px
+            max-height: 35px
+            padding: 0
+            border-radius: 50%
+
+            &:first-of-type
+                margin-right: -5px
+
+    .ocean-color-text
+        color: $darkblue-color
