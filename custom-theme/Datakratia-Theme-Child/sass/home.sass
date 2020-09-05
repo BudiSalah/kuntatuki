@@ -1,4 +1,8 @@
 body
+    #site-content
+        @media screen and (min-width: 992px)
+            margin-top: -50px
+
     @media screen and (min-width: 1200px)
         .container
             padding-left: 90px
@@ -10,25 +14,33 @@ body
             padding-bottom: 90px
 
             .inner-row
-                padding-right: 114px
+                padding-top: 65px
+                padding-right: 15px
+
+                &:before
+                    content: ""
+                    width: 70px
+                    height: 100px
+                    position: absolute
+                    top: 40px
+                    left: -65px
+                    z-index: -1
+                    background:
+                        image: url(http://demo10.demosaitti.com/wp-content/uploads/2020/09/blue-yellow-shape.png)
+                        repeat: no-repeat
+                        size: contain
+
+                    @media screen and (max-width: 1199px)
+                        transform: translateY(-42px)
+
+                p
+                    padding-right: 15px
     
     #hero
         padding-top: 42px
 
-        &:before
-            content: ""
-            width: 50px
-            height: 80px
-            position: absolute
-            left: 15px
-            z-index: -1
-            background:
-                image: url(http://demo10.demosaitti.com/wp-content/uploads/2020/09/blue-yellow-shape.png)
-                repeat: no-repeat
-                size: contain
-
-            @media screen and (max-width: 1199px)
-                transform: translateY(-42px)
+        @media screen and (min-width: 992px)
+            padding-top: 0
                 
         p
             font-size: 14px
@@ -56,16 +68,31 @@ body
                     image: url(http://demo10.demosaitti.com/wp-content/uploads/2020/09/blue-shape.png)
                     repeat: no-repeat
                     size: contain
-                transform: translateY(-7vh)
+                transform: translateY(-11vh)
 
             h4
                 max-width: 270px
                 margin-left: 0
-                letter-spacing: 0.4px
+                letter-spacing: 0.5px
+                font-size: 13px
+                font-weight: 700
+
+        .custom-padding-left
+            @media screen and (min-width: 992px)
+                padding-left: 70px
     
     .title-heading,
     .sc_hero-btns-wrapper
         margin-bottom: 31px
+
+    .title-heading
+        letter-spacing: 2px
+        font-weight: 700
+
+    .sc_hero-btns-wrapper
+        .btn:nth-of-type(3)
+            @media screen and (min-width: 1200px)
+                min-width: 110px
 
     #how-it-can-help
         padding-top: 0
@@ -113,8 +140,7 @@ body
 
         .step-title
             font-size: 25px
-            font-weight: 700
-            max-width: 210px
+            max-width: 230px
             min-height: 90px
             margin-left: 0
             @media screen and (max-width: 767px)

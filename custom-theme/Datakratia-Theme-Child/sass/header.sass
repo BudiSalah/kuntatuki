@@ -2,14 +2,20 @@
 
 body
     #site-header
+        @media screen and (min-width: 992px)
+            background: transparent !important
+        
         nav
             .menu-item
-                margin-left: 35px
+                margin-left: 23px
+                
                 a
                     position: relative
-                    color: $black-color
-                    font-size: 14px
+                    color: #5a5959
+                    font-size: 12px
+                    letter-spacing: .5px
                     text-decoration: none
+
                     &:after
                         content: ""
                         position: absolute
@@ -22,6 +28,7 @@ body
 
                     &:hover,
                         color: $ocean-color
+                        font-weight: 700
                     
                         &:after
                             width: 100%
@@ -29,6 +36,7 @@ body
 
                 &.current_page_item a
                     color: $ocean-color
+                    font-weight: 700
 
                     &:after
                         width: 100%
@@ -41,8 +49,11 @@ body
                     padding: 11px 10px
                     background-color: $darkblue-color
                     color: #ffffff
-                    font-weight: 900
-                    letter-spacing: 2px
+                    font-weight: 700
+                    letter-spacing: 1px
+                    font-size: 16px
+                    min-width: 125px
+                    text-align: center
 
                     &:after
                         opacity: 0 !important

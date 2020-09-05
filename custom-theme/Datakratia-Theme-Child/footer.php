@@ -19,7 +19,7 @@
 				<div class="col-12 col-sm-12 col-md-6">
 					<div class="row sc_ifu-section">
 						<div class="col-12 row mb-2 sm-0 custom-images-icons-wrapper">
-							<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/avada-movers-johnsmith-final.jpg"
+							<img src="http://demo10.demosaitti.com/wp-content/uploads/2020/09/phone-icon.png"
 								class="img-fluid col" alt="Responsive image">
 							<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/avada-movers-johnsmith-final.jpg"
 								class="img-fluid col" alt="Responsive image">
@@ -37,8 +37,8 @@
 				<div class="col-12 col-sm-12 col-md-6">
 					<p>Kuntatuki palvelun tuottaa Datakratia Oy</p>
 
-					<div class="row">
-						<div class="col-1 p-0">
+					<div class="row ml-0">
+						<div class="col-2 p-0 custom-max-width">
 							<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/circls-icon.png"
 							class="img-fluid" alt="Responsive image">
 						</div>
@@ -47,8 +47,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-12 col-sm-12 col-md-6 text-right">
-					<a href="#" class="btn btn-primary">PALVELUSTA</a>
+				<div class="col-12 col-sm-12 col-md-6 text-right footer-btn-wrapper">
+					<a href="#" class="btn btn-primary darkblue">Ota yhteyttä</a>
 				</div>
 			</div>
 		</section>

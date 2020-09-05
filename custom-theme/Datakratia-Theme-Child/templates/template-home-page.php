@@ -1,24 +1,20 @@
 <?php
 /**
- * The main template file
- *
- * This is the most generic template file in a WordPress theme
- * and one of the two required files for a theme (the other being style.css).
- * It is used to display a page when nothing more specific matches a query.
- * E.g., it puts together the home page when no home.php file exists.
- *
- * @link httpss://developer.wordpress.org/themes/basics/template-hierarchy/
+ * Template Name: SC Home Page
+ * Template Post Type: post, page
  *
  * @package WordPress
  * @subpackage Twenty_Twenty
  * @since Twenty Twenty 1.0
  */
 
-get_header();
+?>
+
+<?php
+    get_header();
 ?>
 
 <main id="site-content" role="main">
-
 	<section id="hero" class="container">
 		<div class="row flex-column-reverse flex-md-row">
 			<div class="col-12 col-md-5">
@@ -45,7 +41,7 @@ get_header();
 							<h2 class="darkblue-color-text">+358 50 591 2746</h2>
 						</div>
 						<div class="col-3 row custom-images-icons-wrapper">
-							<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/avada-movers-johnsmith-final.jpg"
+							<img src="http://demo10.demosaitti.com/wp-content/uploads/2020/09/phone-icon.png"
 								class="img-fluid col" alt="Responsive image">
 							<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/avada-movers-johnsmith-final.jpg"
 								class="img-fluid col" alt="Responsive image">
@@ -54,7 +50,7 @@ get_header();
 				</div>
 			</div>
 
-			<div class="col-12 col-md-6">
+			<div class="col-12 col-md-7 custom-padding-left">
 				<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/board-with-pig.jpg" class="img-fluid"
 					alt="Responsive image">
 			</div>
@@ -89,7 +85,7 @@ get_header();
 
 		<blockquote>
 			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
+				"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. "
 			</p>
 
 			<p class="quote-author">– Tuomas Hirvonen, Vesilahden Kunnan johtaja</p>
@@ -102,5 +98,4 @@ get_header();
 
 </main><!-- #site-content -->
 
-<?php
-get_footer();
+<?php get_footer(); ?>

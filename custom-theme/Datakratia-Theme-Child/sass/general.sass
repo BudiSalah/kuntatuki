@@ -3,6 +3,7 @@ body
         h#{$i}
             font-family: 'Roboto', sans-serif
             line-height: 1.2
+            letter-spacing: .5px
         
         p, a, li, span, div
             font-family: 'Roboto', sans-serif
@@ -36,7 +37,7 @@ body
             font-size: 24px
 
     h3
-        color: $black-color  
+        color: $black-color
 
     h4
         font-size: $h4-size
@@ -46,27 +47,28 @@ body
     .btn
         padding: 11px 10px
         font-size: 13px
-        font-weight: 900
+        font-weight: 700
         color: #ffffff
         border-radius: 0
         border: none
-        letter-spacing: 2px
+        letter-spacing: .5px
 
         &:hover
             filter: contrast(1.2)
-
-    #site-content
-        .ocean,
-        .ocean:hover
-            background-color: $ocean-color
-        .lightgray,
-        .lightgray:hover
-            background-color: $lightgray-color
-        .darkblue,
-        .darkblue:hover
-            background-color: $darkblue-color
+    .ocean,
+    .ocean:hover
+        background-color: $ocean-color
+    .lightgray,
+    .lightgray:hover
+        background-color: $lightgray-color
+    .darkblue,
+    .darkblue:hover
+        background-color: $darkblue-color
 
     .custom-images-icons-wrapper
+        @media screen and (max-width: 575px)
+            margin-right: 0
+
         @media screen and (min-width: 481px)
             justify-content: flex-end
 
