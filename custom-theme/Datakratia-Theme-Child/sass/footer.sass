@@ -9,10 +9,17 @@ body
             padding-top: 70px
             padding-bottom: 70px
 
+            @media screen and (max-width: 767px)
+                max-width: calc(100% - 8rem)
+
+            @media screen and (max-width: 699)
+                max-width: calc(100% - 4rem)
+
         .sc_ifu-section
             .custom-images-icons-wrapper
-                max-width: fit-content
-                max-width: -moz-fit-content
+                @media screen and (min-width: 481px)
+                    max-width: fit-content
+                    max-width: -moz-fit-content
 
             h4
                 line-height: 35px
@@ -22,6 +29,17 @@ body
                 max-width: 340px
                 margin-left: 0
                 margin-top: -6px
+
+                @media screen and (max-width: 480px)
+                    line-height: 1.4
+                    font-size: 20px
+
+
+        .call-us-wrapper
+            > div:nth-of-type(2)
+                @media screen and (max-width: 767px)
+                    margin-top: 32px
+                    text-align: left !important
 
         .suported-by-wrapper
             margin-top: 32px
@@ -39,6 +57,13 @@ body
                     line-height: 48px
                     font-size: 31px
                     font-weight: 400
+
+            > div:nth-of-type(2)
+                align-self: center
+
+                @media screen and (max-width: 767px)
+                    margin-top: 32px
+                    text-align: left !important
 
         .footer-phone-title
             h3

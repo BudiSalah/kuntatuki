@@ -15,26 +15,26 @@
 	<footer id="site-footer" role="contentinfo" class="header-footer-group">
 
 		<section class="container">
-			<div class="row">
-				<div class="col">
-				<div class="row sc_ifu-section">
-					<div class="col row custom-images-icons-wrapper">
-						<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/avada-movers-johnsmith-final.jpg"
-							class="img-fluid col" alt="Responsive image">
-						<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/avada-movers-johnsmith-final.jpg"
-							class="img-fluid col" alt="Responsive image">
-					</div>
+			<div class="row call-us-wrapper">
+				<div class="col-12 col-sm-12 col-md-6">
+					<div class="row sc_ifu-section">
+						<div class="col-12 row mb-2 sm-0 custom-images-icons-wrapper">
+							<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/avada-movers-johnsmith-final.jpg"
+								class="img-fluid col" alt="Responsive image">
+							<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/avada-movers-johnsmith-final.jpg"
+								class="img-fluid col" alt="Responsive image">
+						</div>
 
-					<h4 class="col">Neuvontamme palvelee sinua arkisin klo10 - 16.</h4>
+						<h4 class="col-12">Neuvontamme palvelee sinua arkisin klo10 - 16.</h4>
+					</div>
 				</div>
-				</div>
-				<div class="col text-right footer-phone-title">
+				<div class="col-12 col-sm-12 col-md-6 text-right footer-phone-title">
 					<h3>Neuvonnan puhelin</h3>
-					<h2 class="ocean-color-text">+358 50 591 2746</h2>
+					<h2 class="darkblue-color-text">+358 50 591 2746</h2>
 				</div>
 			</div>
 			<div class="row suported-by-wrapper">
-				<div class="col">
+				<div class="col-12 col-sm-12 col-md-6">
 					<p>Kuntatuki palvelun tuottaa Datakratia Oy</p>
 
 					<div class="row">
@@ -47,7 +47,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col text-right">
+				<div class="col-12 col-sm-12 col-md-6 text-right">
 					<a href="#" class="btn btn-primary">PALVELUSTA</a>
 				</div>
 			</div>

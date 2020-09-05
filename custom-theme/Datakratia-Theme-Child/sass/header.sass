@@ -20,12 +20,19 @@ body
                         transition: .2s width linear
                         opacity: 0
 
-                    &:hover
+                    &:hover,
                         color: $ocean-color
                     
                         &:after
                             width: 100%
                             opacity: 1
+
+                &.current_page_item a
+                    color: $ocean-color
+
+                    &:after
+                        width: 100%
+                        opacity: 1
 
             #menu-item-250
                 margin-top: -4px

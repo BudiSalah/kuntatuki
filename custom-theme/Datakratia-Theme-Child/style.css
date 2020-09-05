@@ -1,11 +1,9 @@
 /*
-Theme Name: Twenty Twenty Child
-Theme URI: 
-Description: Default Twenty Twenty child theme
-Author: Antti Vainionpää
-Author URI: 
-Template: twentytwenty
-Version: 0.1
+ Template:     Datakratia Theme
+ Theme Name:   Datakratia Theme Child
+ Description:  A child theme by Scripty Team
+ Version:      1.0.0
+ Author:       Antti Vainionpää
 */
 
-@import "./css/sass-style.css"
+@import "./css/sass-style.css";

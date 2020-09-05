@@ -13,7 +13,23 @@ body
                 padding-right: 114px
     
     #hero
+        padding-top: 42px
 
+        &:before
+            content: ""
+            width: 50px
+            height: 80px
+            position: absolute
+            left: 15px
+            z-index: -1
+            background:
+                image: url(http://demo10.demosaitti.com/wp-content/uploads/2020/09/blue-yellow-shape.png)
+                repeat: no-repeat
+                size: contain
+
+            @media screen and (max-width: 1199px)
+                transform: translateY(-42px)
+                
         p
             font-size: 14px
             line-height: 1.4
@@ -29,6 +45,19 @@ body
             margin-bottom: 80px
 
         .sc_ifu-section
+            &:before
+                content: ""
+                width: 50px
+                height: 70px
+                position: absolute
+                left: -70px
+                z-index: -1
+                background:
+                    image: url(http://demo10.demosaitti.com/wp-content/uploads/2020/09/blue-shape.png)
+                    repeat: no-repeat
+                    size: contain
+                transform: translateY(-7vh)
+
             h4
                 max-width: 270px
                 margin-left: 0
@@ -41,11 +70,43 @@ body
     #how-it-can-help
         padding-top: 0
         padding-bottom: 0
+
+        &:before
+            content: ""
+            width: 55px
+            height: 205px
+            position: absolute
+            left: 0
+            z-index: -1
+            background:
+                image: url(http://demo10.demosaitti.com/wp-content/uploads/2020/09/blue-light-green-shape.png)
+                repeat: no-repeat
+                size: contain
+
+        &:after
+            content: ""
+            width: 30px
+            height: 105px
+            position: absolute
+            right: 0
+            z-index: -1
+            background:
+                image: url(http://demo10.demosaitti.com/wp-content/uploads/2020/09/light-blue-shape.png)
+                repeat: no-repeat
+                size: contain
+            transform: translateY(-80vh)
         
         @media screen and (min-width: 1200px)
             h1
                 margin-bottom: 110px
 
+        .step-wrapper *
+            @media screen and (max-width: 575px)
+                max-width: 100% !important
+                min-height: unset !important
+                margin: auto
+                text-align: center
+        
         .step-icon
             max-width: 65px
             margin-bottom: 15px
@@ -56,7 +117,8 @@ body
             max-width: 210px
             min-height: 90px
             margin-left: 0
-            margin-bottom: 31px
+            @media screen and (max-width: 767px)
+                margin-bottom: 31px
 
         .step-text
             font-size: 14px

@@ -20,8 +20,8 @@ get_header();
 <main id="site-content" role="main">
 
 	<section id="hero" class="container">
-		<div class="row">
-			<div class="col">
+		<div class="row flex-column-reverse flex-md-row">
+			<div class="col-12 col-md-6">
 				<div class="inner-row">
 					<h2 class="title-heading">Kaikki kuntien haettavissa olevat tuet yhdestä paikasta.</h2>
 					<p>
@@ -31,9 +31,9 @@ get_header();
 						Tilaamalla palvelun saat myös ilmoitukset saapuneista uusista hakumahdollisuuksista sähköpostiisi.
 					</p>
 					<div class="sc_hero-btns-wrapper">
-						<a href="#" class="btn btn-primary ocean">PYYDÄ TUNNUKSET</a>
-						<a href="#" class="btn btn-primary lightgray">PALVELUSTA</a>
-						<a href="#" class="btn btn-primary darkblue">KIRJAUDU</a>
+						<a href="#" class="btn btn-primary ocean mt-3 mt-md-3 mt-lg-0">PYYDÄ TUNNUKSET</a>
+						<a href="#" class="btn btn-primary lightgray mt-3 mt-md-3 mt-lg-0">PALVELUSTA</a>
+						<a href="#" class="btn btn-primary darkblue mt-3 mt-md-3 mt-lg-0">KIRJAUDU</a>
 					</div>
 
 					<hr>
@@ -42,7 +42,7 @@ get_header();
 						<div class="col">
 							<h4>Jos sinulla on kysyttää tai haluat varata demo -ajan, niin voit soittaa alla olevaan
 							numeroon:</h4>
-							<h2 class="ocean-color-text">+358 50 591 2746</h2>
+							<h2 class="darkblue-color-text">+358 50 591 2746</h2>
 						</div>
 						<div class="col-3 row custom-images-icons-wrapper">
 							<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/avada-movers-johnsmith-final.jpg"
@@ -54,7 +54,7 @@ get_header();
 				</div>
 			</div>
 
-			<div class="col">
+			<div class="col-12 col-md-6">
 				<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/board-with-pig.jpg" class="img-fluid"
 					alt="Responsive image">
 			</div>
@@ -65,22 +65,22 @@ get_header();
 		<h1>Miten Kuntatuki voi auttaa teitä?</h1>
 
 		<div id="help-steps" class="row">
-			<div class="col step-wrapper">
+			<div class="col-12 col-sm-6 col-md-3 mb-5 mb-md-0 step-wrapper">
 				<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/help-icon.png" class="img-fluid step-icon" alt="Responsive image">
 				<h3 class="step-title">Helppo ja nopea käyttää.</h3>
 				<p class="step-text">Lorem ipsum dolor sit amet.</p>
 			</div>
-			<div class="col step-wrapper">
+			<div class="col-12 col-sm-6 col-md-3 mb-5 mb-md-0 step-wrapper">
 				<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/team-icon.jpg" class="img-fluid step-icon" alt="Responsive image">
 				<h3 class="step-title">Jokaiselle kunnan yksikölle räätälöity.</h3>
 				<p class="step-text">Lorem ipsum dolor sit amet.</p>
 			</div>
-			<div class="col step-wrapper">
+			<div class="col-12 col-sm-6 col-md-3 mb-5 mb-md-0 step-wrapper">
 				<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/calc-icon.png" class="img-fluid step-icon" alt="Responsive image">
 				<h3 class="step-title">Näet palvelusta haetut ja saadut tuet.</h3>
 				<p class="step-text">Lorem ipsum dolor sit amet.</p>
 			</div>
-			<div class="col step-wrapper">
+			<div class="col-12 col-sm-6 col-md-3 mb-5 mb-md-0 step-wrapper">
 				<img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/compny-icon.png" class="img-fluid step-icon" alt="Responsive image">
 				<h3 class="step-title">Kaikki yhdestä paikasta.</h3>
 				<p class="step-text">Lorem ipsum dolor sit amet.</p>

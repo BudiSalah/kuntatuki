@@ -24,10 +24,16 @@ body
         color: $black-color
         font-weight: 500
 
+        @media screen and (max-width: 480px)
+            font-size: 31px
+
     h2
         font-size: $h2-size
         color: $black-color
         font-weight: 500
+
+        @media screen and (max-width: 480px)
+            font-size: 24px
 
     h3
         color: $black-color  
@@ -49,18 +55,20 @@ body
         &:hover
             filter: contrast(1.2)
 
-    .ocean,
-    .ocean:hover
-        background-color: $ocean-color
-    .lightgray,
-    .lightgray:hover
-        background-color: $lightgray-color
-    .darkblue,
-    .darkblue:hover
-        background-color: $darkblue-color
+    #site-content
+        .ocean,
+        .ocean:hover
+            background-color: $ocean-color
+        .lightgray,
+        .lightgray:hover
+            background-color: $lightgray-color
+        .darkblue,
+        .darkblue:hover
+            background-color: $darkblue-color
 
     .custom-images-icons-wrapper
-        justify-content: flex-end
+        @media screen and (min-width: 481px)
+            justify-content: flex-end
 
         img
             max-width: 35px
@@ -71,5 +79,5 @@ body
             &:first-of-type
                 margin-right: -5px
 
-    .ocean-color-text
+    .darkblue-color-text
         color: $darkblue-color

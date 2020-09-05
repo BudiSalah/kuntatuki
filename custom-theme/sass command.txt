@@ -1,0 +1,1 @@
+sass --watch C:\xampp\htdocs\kuntatuki\custom-theme\Datakratia-Theme-Child\sass\style.sass:C:\xampp\htdocs\kuntatuki\custom-theme\Datakratia-Theme-Child\css\sass-style.css --style compressed
