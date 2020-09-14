@@ -71,6 +71,80 @@
         <hr>
     </div>
 
+    <section id="jobs-table-wrapper" class="container table-responsive">
+        <table id="jobs-table" class="table m-0">
+            <thead>
+                <tr>
+                    <th scope="col">Nimi</th>
+                    <th scope="col">Julkaistu</th>
+                    <th scope="col">Määräaika</th>
+                    <th scope="col">Ilmoitustyyppi</th>
+                    <th scope="col">Ostajaorganisaatio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    $args = array(
+                        'post_type'=> 'projects',
+                        'areas'    => 'painting',
+                        'order'    => 'DSC'
+                    );
+
+                    $the_query = new WP_Query( $args );
+                    if($the_query->have_posts() ) : 
+                        echo "<pre>";
+                            print_r($the_query->posts);
+                        echo "</pre>";
+                        echo "<hr> <hr>";
+                        echo "<pre>";
+                            print_r(get_post_meta(315));
+                        echo "</pre>";
+                        while ( $the_query->have_posts()) : 
+                            $the_query->the_post();
+                            $post_id = get_the_ID();
+                ?>
+                                <tr>
+                                    <td class="darkblue-color-text">
+                                        <?php
+                                            $custom_title = the_title("", "", false);
+                                            if (strlen($custom_title) > 90):
+                                                echo substr($custom_title, 0, 90) . "...";
+                                            else:
+                                                echo $custom_title;
+                                            endif;
+                                        ?>
+                                    </td>
+                                    <td class="date-time-wrapper">
+                                        <?php
+                                            echo get_the_date("j.n.Y h:i");
+                                        ?>
+                                    </td>
+                                    <td class="time-date-wrapper">
+                                        <?php
+                                            echo get_post_meta($post_id, "duration")[0];
+                                        ?>
+                                    </td>
+                                    <td class="white-space-none">
+                                        <?php
+                                            echo get_post_meta($post_id, "organisation_type")[0];
+                                        ?>
+                                    </td>
+                                    <td class="white-space-none">
+                                        <?php
+                                            echo get_post_meta($post_id, "organisation")[0];
+                                        ?>
+                                    </td>
+                                </tr>
+                            <?php
+                        endwhile; 
+                        wp_reset_postdata(); 
+                    else: 
+                    endif;
+                ?>
+            </tbody>
+        </table>
+    </section>
+
     <section id="facebook-posts" class="container">
         <div class="card">
             <div class="card-header">

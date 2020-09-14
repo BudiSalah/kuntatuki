@@ -1,7 +1,19 @@
 jQuery(document).ready(() => {
     // custom select input
     customSelectInput(); // NOT WORKING!!
+
+    // add dataTable for ilmoitukset's table
+    addDataTable();
 });
+
+// is exists
+function isExists(target) {
+    if (target) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 // custom select input
 function customSelectInput() {
@@ -45,4 +57,17 @@ function customSelectInput() {
             hideCustomOptions();
         });
     }
+}
+
+// add dataTable for ilmoitukset's table
+function addDataTable() {
+    let table = document.getElementById("jobs-table");
+    if(!isExists(table)) {return};
+    let dataTableOpt = {
+        "searching": false,
+        "lengthChange": false,
+        "info": false,
+        "paging": false
+    }
+    jQuery(table).dataTable(dataTableOpt);
 }

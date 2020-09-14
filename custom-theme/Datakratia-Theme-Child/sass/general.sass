@@ -1,3 +1,5 @@
+@import "var.sass"
+
 body
     @for $i from 1 through 6
         h#{$i}
@@ -83,3 +85,29 @@ body
 
     .darkblue-color-text
         color: $darkblue-color
+
+    table[id*="-table"]
+        font-family: "Roboto",sans-serif
+        border-collapse: collapse
+
+        .sorting_desc,
+        .sorting_asc
+            background-color: $darkblue-color
+            color: #ffffff
+
+        thead th
+            color: $darkblue-color
+            background-color: #ffffff
+
+        tr > *
+            border:
+                width: 1px 0 .5px
+                color: #eee
+
+        tbody td
+            font-weight: 700
+            padding: 15px 18px
+            font-size: 16px
+
+    .white-space-none
+        white-space: nowrap
