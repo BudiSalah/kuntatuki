@@ -71,7 +71,7 @@
         <hr>
     </div>
 
-    <section id="jobs-table-wrapper" class="container table-responsive">
+    <section id="jobs-table-wrapper" class="container table-responsive pb-0">
         <table id="jobs-table" class="table m-0">
             <thead>
                 <tr>
@@ -91,14 +91,7 @@
                     );
 
                     $the_query = new WP_Query( $args );
-                    if($the_query->have_posts() ) : 
-                        echo "<pre>";
-                            print_r($the_query->posts);
-                        echo "</pre>";
-                        echo "<hr> <hr>";
-                        echo "<pre>";
-                            print_r(get_post_meta(315));
-                        echo "</pre>";
+                    if($the_query->have_posts() ) :
                         while ( $the_query->have_posts()) : 
                             $the_query->the_post();
                             $post_id = get_the_ID();
@@ -137,8 +130,7 @@
                                 </tr>
                             <?php
                         endwhile; 
-                        wp_reset_postdata(); 
-                    else: 
+                        wp_reset_postdata();
                     endif;
                 ?>
             </tbody>
@@ -146,65 +138,44 @@
     </section>
 
     <section id="facebook-posts" class="container">
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-1 card-header-icon">
-                        <img src="http://demo10.demosaitti.com/wp-content/uploads/2020/09/thumbs-up-facebook.png" class="img-fluid" alt="Like Icon">
-                    </div>
-                    <h4 class="col darkblue-color-text card-header-title">
-                        <a href="#">Ajankohtaista</a>
-                    </h4>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12 col-sm-6 img-wrapper">
-                        <img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/board-with-pig.jpg" class="img-fluid" alt="Responsive image">
-                    </div>
-                    <div class="col-12 col-sm-6 mt-3 mt-sm-0 step-wrapper">
-                        <h3 class="card-title">10 VINKKIÄ HAKEMUKSEN TEKOON</h3>
-                        <p class="card-text">
-                            Lorem Ipsum on yksinkertaisesti testausteksti, jota tulostus- ja ladontateollisuudet käyttävät. Lorem Ipsum on ollut teollisuuden normaali testausteksti jo 1500-luvulta asti, jolloin tuntematon tulostaja otti kaljuunan ja sekoitti sen tehdäkseen esimerkkikirjan.
-                        </p>
-                    </div>
-                </div>
+        <?php
+            $wp_posts = get_posts();
 
-                <div class="btn-wrapper text-right">
-                    <a href="#" class="btn btn-primary ocean text-uppercase mt-4">lue lisää</a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-1 card-header-icon">
-                        <img src="http://demo10.demosaitti.com/wp-content/uploads/2020/09/thumbs-up-facebook.png" class="img-fluid" alt="Like Icon">
+            foreach ($wp_posts as $post):
+                $post_id = $post->ID;
+                $content = str_replace(array("<p>", "</p>"), "", $post->post_content);
+                strlen($content) > 313 ? $content = substr($content, 0, 313) . "..." : $content = $content;
+        ?>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-1 card-header-icon">
+                                <img src="http://demo10.demosaitti.com/wp-content/uploads/2020/09/thumbs-up-facebook.png" class="img-fluid" alt="Like Icon">
+                            </div>
+                            <h4 class="col darkblue-color-text card-header-title">
+                                <a href="#">Ajankohtaista</a>
+                            </h4>
+                        </div>
                     </div>
-                    <h4 class="col darkblue-color-text card-header-title">
-                        <a href="#">Ajankohtaista</a>
-                    </h4>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12 col-sm-6 img-wrapper">
-                        <img src="https://demo10.demosaitti.com/wp-content/uploads/2020/09/board-with-pig.jpg" class="img-fluid" alt="Responsive image">
-                    </div>
-                    <div class="col-12 col-sm-6 mt-3 mt-sm-0 step-wrapper">
-                        <h3 class="card-title">10 VINKKIÄ HAKEMUKSEN TEKOON</h3>
-                        <p class="card-text">
-                            Lorem Ipsum on yksinkertaisesti testausteksti, jota tulostus- ja ladontateollisuudet käyttävät. Lorem Ipsum on ollut teollisuuden normaali testausteksti jo 1500-luvulta asti, jolloin tuntematon tulostaja otti kaljuunan ja sekoitti sen tehdäkseen esimerkkikirjan.
-                        </p>
-                    </div>
-                </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-sm-6 img-wrapper">
+                                <img src="<?php echo get_the_post_thumbnail_url($post_id);?>" class="img-fluid" alt="Responsive image">
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3 mt-sm-0 step-wrapper">
+                                <h3 class="card-title"><?php echo the_title("", "", false);?></h3>
+                                <p class="card-text"><?php echo $content;?></p>
+                            </div>
+                        </div>
 
-                <div class="btn-wrapper text-right">
-                    <a href="#" class="btn btn-primary ocean text-uppercase mt-4">lue lisää</a>
+                        <div class="btn-wrapper text-right">
+                            <a href="<?php echo get_permalink($post_id);?>" class="btn btn-primary ocean text-uppercase mt-4">lue lisää</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+        <?php
+            endforeach;
+        ?>
 
     </section>
 
