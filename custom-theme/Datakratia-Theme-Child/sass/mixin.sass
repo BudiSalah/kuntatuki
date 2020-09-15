@@ -1,0 +1,98 @@
+@mixin servicesTitle
+    font-size: 60px
+    line-height: 60px
+    @media screen and (max-width: 767px)
+        font-size: 32px
+        line-height: 32px
+
+@mixin servicesHelpTitle
+    font-size: 50px
+    line-height: 50px
+    font-weight: 700
+    @media screen and (min-width: 992px)
+        max-width: 750px
+        margin-left: 0
+        margin-bottom: 100px !important
+    @media screen and (max-width: 767px)
+        font-size: 32px
+        line-height: 32px
+
+@mixin marginBottom120-60-30
+    margin-bottom: 120px
+    @media screen and (max-width: 991px)
+        margin-bottom: 60px
+    @media screen and (max-width: 767px)
+        margin-bottom: 30px
+
+@mixin marginTop120-60-30
+    margin-top: 120px
+    @media screen and (max-width: 991px)
+        margin-top: 60px
+    @media screen and (max-width: 767px)
+        margin-top: 30px
+
+@mixin serviceStepRow
+    .step-icon
+        max-width: 490px
+        width: 100%
+
+    .step-title
+        font-weight: 700
+        margin-bottom: 30px
+        max-width: none
+        min-height: auto
+        @media screen and (min-width: 768px)
+            max-width: 320px
+            font-size: 35px
+            line-height: 45px
+            
+        br
+            @media screen and (max-width: 767px)
+                display: none
+
+    .step-text
+        font-size: 18px
+        color: #000000
+        margin-bottom: 45px
+        @media screen and (min-width: 768px)
+            max-width: 450px
+
+    .list-group
+        margin: 0
+        .list-group-item
+            margin: 0 0 15px
+            padding: 0
+            font-size: 15px
+            color: #737E86
+            border: none
+            &:last-of-type
+                margin-bottom: 0
+
+            ion-icon
+                font-size: 28px
+                color: $ocean-color
+                margin-bottom: -8px
+                margin-right: 8px
+
+    .more-p
+        font-size: 15px
+        color: $cloudygray-color
+        margin: 32px 0
+        margin: 32px 0
+        line-height: 1.8
+        @media screen and (min-width: 768px)
+            max-width: 450px
+    
+    .btn-wrapper a
+        font-size: 16px
+        padding: 15px 30px
+        background-color: transparent
+        color: #000000
+        border: 2px solid #E2E2E2
+        &:hover
+            color: #ffffff
+            background-color: $ocean-color
+            border-color: $ocean-color
+        
+        ion-icon
+            margin-bottom: -2px

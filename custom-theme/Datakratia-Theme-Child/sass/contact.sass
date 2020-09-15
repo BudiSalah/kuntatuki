@@ -1,0 +1,163 @@
+@import "var.sass"
+    
+body
+    #site-content.contact-main
+        #hero
+            .title-heading
+                @include servicesTitle
+
+        #how-it-can-help
+            @include marginBottom120-60-30
+
+            h1
+                @include servicesHelpTitle
+            
+            .step-title
+                min-height: auto
+            
+            .step-head
+                font-size: 17px
+                line-height: 27px
+                color: #000000
+            
+            .step-text
+                line-height: 27px
+                letter-spacing: 1px
+                color: $cloudygray-color
+
+        #form-section
+            background: url(http://demo10.demosaitti.com/wp-content/uploads/2020/09/contact-bg.png) no-repeat center 20px
+            padding-top: 40px
+
+            @media screen and (min-width: 992px)
+                min-height: 615px
+
+            .section-title
+                margin-bottom: 40px
+
+                > *
+                    display: inline-block
+
+                h4
+                    font-size: 17px
+                    font-weight: 500
+
+                ion-icon
+                    font-size: 45px
+                    vertical-align: middle
+                    color: $ocean-color
+                    margin-right: 10px
+                    margin-top: -8px
+
+            .headline
+                @include servicesHelpTitle
+                @media screen and (min-width: 992px)
+                    margin-bottom: 75px !important
+
+            .location-text
+                font-size: 35px
+                line-height: 45px
+                color: #000000
+
+            form
+                @media screen and (min-width: 768px)
+                    padding-top: 22px
+
+                .form-group
+                    margin-bottom: 15px
+
+                    input,
+                    textarea
+                        padding: 10px
+                        border: 0
+                        border-bottom: 1px solid $darkblue-color
+                        outline: none
+                        box-shadow: none
+                        font-size: 14px
+                        color: $cloudygray-color
+                        min-height: 40px
+                        &:focus
+                            border-bottom-color: $ocean-color
+                            color: #000000
+
+                    textarea
+                        min-height: 220px
+                        line-height: 20px
+                        resize: none
+
+                    &.message-type
+                        input
+                            margin-right: 8px
+
+                        label
+                            font-size: 15px
+                            color: $cloudygray-color
+                            font-weight: 700
+
+                button
+                    font-size: 16px
+
+        #guidance-section
+            position: relative
+            
+            &::after
+                content: ""
+                position: absolute
+                top: 100px
+                left: -40px
+                height: 200px
+                width: 60px
+                z-index: 99
+                background:
+                    image: url(http://demo10.demosaitti.com/wp-content/uploads/2020/09/guide-section-bg_left.png)
+                    size: contain
+                    repeat: no-repeat
+                @media screen and (max-width: 1200px)
+                    left: -120px
+
+            &::before
+                content: ""
+                position: absolute
+                top: 0
+                right: -40px
+                height: 200px
+                width: 60px
+                z-index: 99
+                background:
+                    image: url(http://demo10.demosaitti.com/wp-content/uploads/2020/09/guide-section-bg_right.png)
+                    size: contain
+                    repeat: no-repeat
+                @media screen and (max-width: 1200px)
+                    right: -120px
+
+            .with-pt
+                @include marginTop120-60-30
+
+            @include serviceStepRow
+
+            .step-title
+                @include servicesHelpTitle
+                @media screen and (min-width: 992px)
+                    max-width: none
+                    margin-bottom: 60px !important
+
+            .step-text
+                font-size: 17px
+                line-height: 27px
+                @media screen and (min-width: 768px)
+                    max-width: 500px
+
+            .more-p
+                max-width: 500px
+
+            .btn
+                font-size: 16px
+
+                ion-icon
+                    margin-bottom: -3px
+
+            .custom-p-yb
+                margin-top: 13px
+                margin-bottom: 13px
+
+            
