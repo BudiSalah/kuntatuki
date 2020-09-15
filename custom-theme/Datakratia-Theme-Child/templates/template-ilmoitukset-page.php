@@ -76,10 +76,9 @@
             <thead>
                 <tr>
                     <th scope="col">Nimi</th>
-                    <th scope="col">Julkaistu</th>
-                    <th scope="col">Määräaika</th>
-                    <th scope="col">Ilmoitustyyppi</th>
-                    <th scope="col">Ostajaorganisaatio</th>
+                    <th scope="col">kesto</th>
+                    <th scope="col">Projektityyppi</th>
+                    <th scope="col">Organisaatio</th>
                 </tr>
             </thead>
             <tbody>
@@ -109,19 +108,21 @@
                                             ?>
                                         </a>
                                     </td>
+                                    <?php 
+                                    
+                                    ?>
                                     <td class="date-time-wrapper">
                                         <?php
-                                            echo get_the_date("j.n.Y h:i");
+                                            //echo get_the_date("j.n.Y h:i");
+                                            $duration=get_post_meta($post_id, "duration",true);
+                                            //var_dump($duration);
+                                            echo (!$duration || $duration==' ')?'-':$duration;
                                         ?>
                                     </td>
-                                    <td class="time-date-wrapper">
-                                        <?php
-                                            echo get_post_meta($post_id, "duration")[0];
-                                        ?>
-                                    </td>
+                                  
                                     <td class="white-space-none">
                                         <?php
-                                            echo get_post_meta($post_id, "organisation_type")[0];
+                                            echo get_post_meta($post_id, "organisation_type",true);
                                         ?>
                                     </td>
                                     <td class="white-space-none">
@@ -139,7 +140,7 @@
         </table>
     </section>
 
-    <section id="facebook-posts" class="container">
+    <section id="facebook-posts" class="container pb-0">
         <?php
             $wp_posts = get_posts();
 
