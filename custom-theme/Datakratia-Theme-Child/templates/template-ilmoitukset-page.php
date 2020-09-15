@@ -98,14 +98,16 @@
                 ?>
                                 <tr>
                                     <td class="darkblue-color-text">
-                                        <?php
-                                            $custom_title = the_title("", "", false);
-                                            if (strlen($custom_title) > 90):
-                                                echo substr($custom_title, 0, 90) . "...";
-                                            else:
-                                                echo $custom_title;
-                                            endif;
-                                        ?>
+                                        <a href="<?php echo get_permalink($post_id);?>">
+                                            <?php
+                                                $custom_title = the_title("", "", false);
+                                                if (strlen($custom_title) > 90):
+                                                    echo substr($custom_title, 0, 90) . "...";
+                                                else:
+                                                    echo $custom_title;
+                                                endif;
+                                            ?>
+                                        </a>
                                     </td>
                                     <td class="date-time-wrapper">
                                         <?php
@@ -124,7 +126,7 @@
                                     </td>
                                     <td class="white-space-none">
                                         <?php
-                                            echo get_post_meta($post_id, "organisation")[0];
+                                            echo  str_replace(" |", "", get_post_meta($post_id, "organisation")[0]);
                                         ?>
                                     </td>
                                 </tr>
