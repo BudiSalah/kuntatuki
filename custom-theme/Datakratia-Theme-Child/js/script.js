@@ -67,8 +67,7 @@ function addDataTable() {
     let dataTableOpt = {
         "searching": false,
         "lengthChange": false,
-        "info": false,
-        "paging": false
+        "info": false
     }
     jQuery(table).dataTable(dataTableOpt);
 }

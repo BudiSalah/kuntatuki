@@ -84,9 +84,10 @@
             <tbody>
                 <?php
                     $args = array(
-                        'post_type'=> 'projects',
-                        'areas'    => 'painting',
-                        'order'    => 'DSC'
+                        'post_type'      => 'projects',
+                        'areas'          => 'painting',
+                        'order'          => 'DSC',
+                        "posts_per_page" => 100
                     );
 
                     $the_query = new WP_Query( $args );
