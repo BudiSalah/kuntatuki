@@ -1,0 +1,124 @@
+@import "var.sass"
+@include liveIconAnimation
+
+body
+    main.prices-main
+        #prices-intro
+            position: relative
+            @media screen and (max-width: 991px)
+                    padding-top: 30px !important
+
+            &::before
+                @include orangeOceanBg
+                left: 0
+
+            .annually-or-monthly
+                margin: 30px auto
+                max-width: 520px
+                @media screen and (min-width: 992px)
+                    margin: 40px auto
+
+
+                > *
+                    font-size: 16px
+                    line-height: 1
+
+                .annually,
+                .monthly
+                    color: $cloudygray-color
+                    &.active
+                        color: #000000
+
+                button
+                    position: relative
+                    max-width: 35px
+                    height: 18px
+                    margin: auto
+                    background-color: $green-color
+                    border-radius: 10px
+                    outline: none
+                    box-shadow: none
+                    padding:
+                        top: 0
+                        bottom: 0
+
+                    &:after
+                        content: ""
+                        position: absolute
+                        top: 2px
+                        left: 2px
+                        width: 14px
+                        height: 14px
+                        background: #ffffff
+                        border-radius: 50%
+                    
+                    &.toggled:after
+                        left: unset
+                        right: 2px
+
+            p
+                font-size: 16px
+
+                .live-icon
+                    display: inline-block
+                    width: 7px
+                    height: 7px
+                    background-color: $green-color
+                    margin-right: 10px
+                    border-radius: 50%
+                    vertical-align: middle
+                    animation:
+                        name: live-icon
+                        fill-mode: both
+                        iteration-count: infinite
+                        duration: 1.8s
+                        timing-function: linear
+
+        #prices-plans
+            position: relative
+            &:after
+                @include blueBg
+                top: 30%
+                right: 0
+
+            .prices-boxes > .row > div
+                @media screen and (max-width: 767px)
+                    margin-bottom: 30px
+                    &:last-of-type
+                        margin-bottom: 0
+
+            .single-plan
+                background-color: #f7f7f7
+                padding: 45px 25px
+
+                .plan-name
+                    font-size: 20px
+                    font-weight: 700
+                    margin-bottom: 30px
+
+                .plan-text
+                    font-size: 16px
+                    min-height: 95px
+                    @media screen and (min-width: 768px) and (max-width: 991px)
+                        margin-bottom: 30px
+
+                .pricing-wrapper
+                    font-size: 24px
+                    margin-bottom: 25px
+
+                    .pricing-value
+                        display: inline-block
+                        font-size: 40px
+
+                    .pricing-currency,
+                    .pricing-decimal
+                        display: inline-block
+                        vertical-align: super
+
+                [class^="plan-note"]
+                    font-size: 14px
+                    line-height: 1.6
+                    margin-bottom: 15px
+
+                .plan-note-gray
+                    color: $cloudygray-color

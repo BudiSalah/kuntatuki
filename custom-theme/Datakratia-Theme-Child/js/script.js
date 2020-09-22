@@ -4,6 +4,9 @@ jQuery(document).ready(() => {
 
     // add dataTable for ilmoitukset's table
     addDataTable();
+
+    // annually or monthly btn in prices page
+    annuallyOrMonthly();
 });
 
 // is exists
@@ -70,4 +73,15 @@ function addDataTable() {
         "paging": false
     }
     jQuery(table).dataTable(dataTableOpt);
+}
+
+// annually or monthly btn in prices page
+function annuallyOrMonthly() {
+    let toggleBtn = document.querySelector(".annually-or-monthly button");
+    if (!isExists(toggleBtn)) {return};
+    toggleBtn.addEventListener("click", e => {
+        e.target.classList.toggle("toggled");
+        document.querySelector(".annually").classList.toggle("active");
+        document.querySelector(".monthly").classList.toggle("active");
+    })
 }
