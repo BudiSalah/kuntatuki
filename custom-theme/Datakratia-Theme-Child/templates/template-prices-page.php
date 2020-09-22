@@ -17,13 +17,7 @@
 <main id="site-content" class="prices-main" role="main">
 	<section id="prices-intro">
 		<div class="container">
-			<h1 class="text-center mb-0">Valitse kasvusuunnitelmasi</h1>
-			
-			<div class="row annually-or-monthly">
-				<div class="col-5 text-right annually pl-0 active">Laskutetaan vuosittain</div>
-				<button class="col-2 btn btn-primary"></button>
-				<div class="col-5 text-left monthly pr-0">Laskutetaan kuukausittain</div>
-			</div>
+			<h1 class="text-center">Valitse kasvusuunnitelmasi</h1>
 			
 			<p class="text-center"><span class="live-icon"></span>Hanki enemmän liidejä millä tahansa sopimuksella Liidit-lisäosan ja siihen sisältyvien Chatbotin ja Live-chatin avulla. <a href="#">Näytä lisää</a></p>
 		</div>
@@ -58,9 +52,9 @@
 								<h3 class="plan-name">$pro_name</h3>
 								<p class="plan-text">$pro_short_desc</p>
 								<div class="pricing-wrapper">
-									<span class="pricing-currency"> US$ </span>
+									<span class="pricing-currency"> EU </span>
 									<span class="pricing-value"> $pro_price_value </span>
-									<span class="pricing-decimal"> $pro_price_decimal </span>
+									<span class="pricing-decimal"> {$pro_price_decimal}€ </span>
 								</div>
 								<div class="plan-note">$note_text</div>
 								<div class="plan-note-gray">$note_text_gray</div>

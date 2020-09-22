@@ -12,49 +12,10 @@ body
                 @include orangeOceanBg
                 left: 0
 
-            .annually-or-monthly
-                margin: 30px auto
-                max-width: 520px
+            h1
+                margin-bottom: 30px
                 @media screen and (min-width: 992px)
-                    margin: 40px auto
-
-
-                > *
-                    font-size: 16px
-                    line-height: 1
-
-                .annually,
-                .monthly
-                    color: $cloudygray-color
-                    &.active
-                        color: #000000
-
-                button
-                    position: relative
-                    max-width: 35px
-                    height: 18px
-                    margin: auto
-                    background-color: $green-color
-                    border-radius: 10px
-                    outline: none
-                    box-shadow: none
-                    padding:
-                        top: 0
-                        bottom: 0
-
-                    &:after
-                        content: ""
-                        position: absolute
-                        top: 2px
-                        left: 2px
-                        width: 14px
-                        height: 14px
-                        background: #ffffff
-                        border-radius: 50%
-                    
-                    &.toggled:after
-                        left: unset
-                        right: 2px
+                    margin-bottom: 40px
 
             p
                 font-size: 16px

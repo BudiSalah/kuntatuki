@@ -62,3 +62,17 @@ function wpdocs_theme_slug_widgets_init() {
     ) );
 }
 add_action( 'widgets_init', 'wpdocs_theme_slug_widgets_init' );
+
+// redirect wc to checkout page
+add_filter( 'woocommerce_add_to_cart_redirect', 'redirect_checkout_add_cart' );
+function redirect_checkout_add_cart() {
+   return wc_get_checkout_url();
+}
+
+// clear cart bofore add new product
+add_filter( 'woocommerce_add_to_cart_validation', 'remove_cart_item_before_add_to_cart', 20, 3 );
+function remove_cart_item_before_add_to_cart( $passed, $product_id, $quantity ) {
+    if( ! WC()->cart->is_empty() )
+        WC()->cart->empty_cart();
+    return $passed;
+}
