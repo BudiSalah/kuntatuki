@@ -32,48 +32,44 @@
 	<section id="prices-plans" class="py-0">
 		<div class="container prices-boxes">
 			<div class="row">
-				<div class="col-12 col-md-4">
-					<div class="single-plan">
-						<h3 class="plan-name">Essential</h3>
-						<p class="plan-text">Järjestä aktiviteetit ja myyntiputket helppoa seurantaa varten</p>
-						<div class="pricing-wrapper">
-							<span class="pricing-currency"> US$ </span>
-							<span class="pricing-value"> 12 </span>
-							<span class="pricing-decimal"> .50 </span>
+			<?php
+				$args = array(
+					'post_type'      => 'product',
+					'posts_per_page' => 3,
+					"order"			 => "ASC"
+				);
+				
+				$loop = new WP_Query( $args );
+
+				while ( $loop->have_posts() ):
+					$loop->the_post();
+					global $product;
+					$pro_name 		   = $product->get_name();
+					$pro_short_desc    = $product->get_short_description();
+					$pro_reg_price 	   = $product->get_regular_price();
+					$pro_price_value   = substr($pro_reg_price, 0, strpos($pro_reg_price, "."));
+					$pro_price_decimal = substr($pro_reg_price, strpos($pro_reg_price, "."));
+					$note_text 		   = $product->get_attribute("note-text");
+					$note_text_gray    = $product->get_attribute("note-text-gray");
+
+					echo <<<HTML
+						<div class="col-12 col-md-4">
+							<div class="single-plan">
+								<h3 class="plan-name">$pro_name</h3>
+								<p class="plan-text">$pro_short_desc</p>
+								<div class="pricing-wrapper">
+									<span class="pricing-currency"> US$ </span>
+									<span class="pricing-value"> $pro_price_value </span>
+									<span class="pricing-decimal"> $pro_price_decimal </span>
+								</div>
+								<div class="plan-note">$note_text</div>
+								<div class="plan-note-gray">$note_text_gray</div>
+								<a href="cart/?add-to-cart={$product->get_id()}" class="btn btn-primary ocean text-uppercase w-100 plan-btn">Valitse</a>
+							</div>	
 						</div>
-						<div class="plan-note">Per käyttäjä per kuukausi, laskutetaan vuosittain</div>
-						<div class="plan-note-gray">tai $15 per käyttäjä, jos laskutus tapahtuu kuukausittain</div>
-						<a href="#" class="btn btn-primary ocean text-uppercase w-100 plan-btn">Valitse</a>
-					</div>	
-				</div>
-				<div class="col-12 col-md-4">
-					<div class="single-plan">
-						<h3 class="plan-name">Advanced</h3>
-						<p class="plan-text">Seuraa ja automatisoi päivääsi vähentääksesi jalkatyötä ja lisätäksesi myyntiä</p>
-						<div class="pricing-wrapper">
-							<span class="pricing-currency"> US$ </span>
-							<span class="pricing-value"> 24 </span>
-							<span class="pricing-decimal"> .90 </span>
-						</div>
-						<div class="plan-note">Per käyttäjä per kuukausi, laskutetaan vuosittain</div>
-						<div class="plan-note-gray">tai $29 per käyttäjä, jos laskutus tapahtuu kuukausittain</div>
-						<a href="#" class="btn btn-primary ocean text-uppercase w-100 plan-btn">Valitse</a>
-					</div>	
-				</div>
-				<div class="col-12 col-md-4">
-					<div class="single-plan">
-						<h3 class="plan-name">Professional</h3>
-						<p class="plan-text">Kaikki mitä tarvitset yhteistyöhön, viestintään ja tuottojen kasvattamiseen</p>
-						<div class="pricing-wrapper">
-							<span class="pricing-currency"> US$ </span>
-							<span class="pricing-value"> 49 </span>
-							<span class="pricing-decimal"> .90 </span>
-						</div>
-						<div class="plan-note">Per käyttäjä per kuukausi, laskutetaan vuosittain</div>
-						<div class="plan-note-gray">tai $59 per käyttäjä, jos laskutus tapahtuu kuukausittain</div>
-						<a href="#" class="btn btn-primary ocean text-uppercase w-100 plan-btn">Valitse</a>
-					</div>	
-				</div>
+					HTML;
+				endwhile;
+			?>
 			</div>
 		</div>
 	</section>
