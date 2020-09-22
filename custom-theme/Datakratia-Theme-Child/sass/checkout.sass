@@ -1,0 +1,57 @@
+body.woocommerce-checkout
+    .post-inner.thin
+        padding-top: 0
+
+        &:before,
+        &:after
+            @media screen and (max-width: 700px)
+                display: none
+
+        &:before
+            @include oceanBlueBg
+
+        &:after
+            @include rightBlueBG
+            transform: translateY(0)
+            top: 150vh
+
+        h3
+            font-family: 'Roboto', sans-serif
+            font-size: $h3-size
+            line-height: 1.2
+            letter-spacing: .5px
+            text-transform: uppercase
+
+    #customer_details
+        label,
+        .woocommerce-input-wrapper
+            display: block
+            width: 100%
+
+        input, 
+        textarea,
+        .selection > [class*="select"]
+            @include formInputs
+            height: 40px
+            padding:
+                top: 20px
+                bottom: 20px
+
+        textarea
+            max-height: none
+            height: 200px
+            resize: none
+
+        .selection
+            > [class*="select"]
+                > [class*="selection__rendered"]
+                    position: relative
+                    top: -12px
+                    left: -8px
+
+                > [class*="selection__arrow"]
+                    top: 7px !important
+
+    [class*="results__options"] li
+        margin-left: 0
+        font-size: 14px

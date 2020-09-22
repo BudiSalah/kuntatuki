@@ -135,3 +135,49 @@
         repeat: no-repeat
     @media screen and (max-width: 1200px)
         right: -120px
+
+@mixin oceanBlueBg
+    content: ""
+    width: 45px
+    height: 210px
+    position: absolute
+    left: 0
+    z-index: -1
+    background:
+        image: url(http://demo10.demosaitti.com/wp-content/uploads/2020/09/blue-light-green-shape.png)
+        repeat: no-repeat
+        size: contain
+
+@mixin rightBlueBG
+    content: ""
+    width: 30px
+    height: 105px
+    position: absolute
+    right: 0
+    z-index: -1
+    background:
+        image: url(http://demo10.demosaitti.com/wp-content/uploads/2020/09/light-blue-shape.png)
+        repeat: no-repeat
+        size: contain
+    transform: translateY(-80vh)
+
+@mixin formInputs
+    min-height: 40px
+    font-size: 16px
+    padding: 23.5px 12px
+    outline: none
+    box-shadow: none
+    border: 0
+    background-color: #cccccc
+
+    &::-webkit-input-placeholder
+        color: $darkblue-color
+
+    &::-ms-input-placeholder
+        color: $darkblue-color
+
+    &::-moz-placeholder
+        color: $darkblue-color
+
+    &:-moz-placeholder
+        color: $darkblue-color
